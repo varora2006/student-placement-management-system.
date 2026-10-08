@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login | PlacementSphere</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =========================
+           STUDENT LOGIN PAGE
+        ========================= */
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(circle at top left, rgba(0, 191, 255, 0.25), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(30, 90, 200, 0.25), transparent 35%),
+                linear-gradient(135deg, #eaf6ff, #cfeaff, #eef8ff);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative circles */
+
+        .login-page::before,
+        .login-page::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: floatingCircle 6s ease-in-out infinite;
+        }
+
+        .login-page::before {
+            width: 260px;
+            height: 260px;
+            background: rgba(0, 123, 255, 0.12);
+            top: -80px;
+            left: -80px;
+        }
+
+        .login-page::after {
+            width: 320px;
+            height: 320px;
+            background: rgba(0, 188, 212, 0.12);
+            bottom: -120px;
+            right: -100px;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes floatingCircle {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+        }
+
+        .login-container {
+            width: min(1050px, 100%);
+            min-height: 610px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 63, 130, 0.22);
+            position: relative;
+            z-index: 2;
+            animation: loginContainer 0.9s ease;
+        }
+
+        @keyframes loginContainer {
+            from {
+                opacity: 0;
+                transform: translateY(45px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .login-left {
+            position: relative;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+            background:
+                linear-gradient(145deg, #003b82, #0069b4 55%, #00a6c7);
+            overflow: hidden;
+        }
+
+        .login-left::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            top: -100px;
+            right: -80px;
+            animation: rotateCircle 15s linear infinite;
+        }
+
+        .login-left::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border: 2px solid rgba(255,255,255,0.12);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -70px;
+            animation: rotateCircle 12s linear infinite reverse;
+        }
+
+        @keyframes rotateCircle {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .brand-badge {
+            display: inline-block;
+            width: fit-content;
+            padding: 9px 17px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.25);
+            font-family: "Times New Roman", serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            animation: slideLeft 0.8s ease 0.2s both;
+        }
+
+        .login-left h1 {
+            font-family: Algerian, "Arial Black", sans-serif;
+            font-size: clamp(32px, 4vw, 48px);
+            line-height: 1.15;
+            margin: 0 0 20px;
+            animation: slideLeft 0.8s ease 0.35s both;
+        }
+
+        .login-left h1 span {
+            color: #8defff;
+        }
+
+        .login-left p {
+            font-family: "Times New Roman", serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.9);
+            max-width: 470px;
+            animation: slideLeft 0.8s ease 0.5s both;
+        }
+
+        .student-benefits {
+            margin-top: 25px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: "Times New Roman", serif;
+            font-size: 16px;
+            animation: slideLeft 0.7s ease both;
+        }
+
+        .benefit:nth-child(1) {
+            animation-delay: 0.65s;
+        }
+
+        .benefit:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .benefit:nth-child(3) {
+            animation-delay: 0.95s;
+        }
+
+        .benefit-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.15);
+        }
+
+        @keyframes slideLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-35px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .login-right {
+            padding: 55px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.92);
+        }
+
+        .login-form-box {
+            width: 100%;
+            max-width: 410px;
+            animation: slideRight 0.8s ease 0.25s both;
+        }
+
+        @keyframes slideRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .login-form-box h2 {
+            font-family: Algerian, "Arial Black", sans-serif;
+            font-size: 34px;
+            color: #003b82;
+            margin: 0 0 8px;
+        }
+
+        .login-subtitle {
+            font-family: "Times New Roman", serif;
+            color: #63758a;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 21px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            color: #183b5c;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .login-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 16px 14px 47px;
+            border: 1.5px solid #c9dbea;
+            border-radius: 12px;
+            outline: none;
+            font-family: "Times New Roman", serif;
+            font-size: 16px;
+            background: #f8fcff;
+            transition: 0.3s ease;
+        }
+
+        .login-input:focus {
+            border-color: #008ed6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 142, 214, 0.11);
+            transform: translateY(-1px);
+        }
+
+        .password-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .show-password {
+            border: none;
+            background: transparent;
+            color: #0076b6;
+            cursor: pointer;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            padding: 0;
+        }
+
+        .show-password:hover {
+            color: #003b82;
+        }
+
+        .login-button {
+            width: 100%;
+            border: none;
+            border-radius: 13px;
+            padding: 15px;
+            margin-top: 8px;
+            cursor: pointer;
+            color: white;
+            font-family: Algerian, "Arial Black", sans-serif;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #003b82, #007bc2, #00a6c7);
+            box-shadow: 0 10px 25px rgba(0, 91, 160, 0.25);
+            transition: 0.3s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 91, 160, 0.32);
+        }
+
+        .login-button:active {
+            transform: scale(0.98);
+        }
+
+        .demo-box {
+            margin-top: 22px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #edf8ff;
+            border-left: 4px solid #008ed6;
+            font-family: "Times New Roman", serif;
+            color: #31526c;
+            font-size: 14px;
+        }
+
+        .demo-box strong {
+            color: #003b82;
+        }
+
+        .form-message {
+            margin-top: 15px;
+            min-height: 22px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+        }
+
+        .account-text {
+            margin-top: 25px;
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            color: #65798d;
+        }
+
+        .account-text a {
+            color: #0075b5;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .account-text a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #49677f;
+            text-decoration: none;
+            font-family: "Times New Roman", serif;
+            font-size: 15px;
+        }
+
+        .back-home:hover {
+            color: #003b82;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .login-container {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+
+            .login-left {
+                padding: 45px 35px;
+                min-height: 390px;
+            }
+
+            .login-right {
+                padding: 45px 35px;
+            }
+
+            .login-left h1 {
+                font-size: 38px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .login-page {
+                padding: 20px 12px;
+            }
+
+            .login-container {
+                border-radius: 20px;
+            }
+
+            .login-left,
+            .login-right {
+                padding: 35px 23px;
+            }
+
+            .login-left h1 {
+                font-size: 30px;
+            }
+
+            .login-left p {
+                font-size: 16px;
+            }
+
+            .login-form-box h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="login-container">
+
+            <!-- =========================
+                 LEFT SECTION
+            ========================== -->
+
+            <section class="login-left">
+
+                <div class="brand-badge">
+                    🎓 PLACEMENTSPHERE
+                </div>
+
+                <h1>
+                    Welcome<br>
+                    <span>Students!</span>
+                </h1>
+
+                <p>
+                    Login to your student account and manage your
+                    complete placement journey from one smart platform.
+                </p>
+
+                <div class="student-benefits">
+
+                    <div class="benefit">
+                        <span class="benefit-icon">📋</span>
+                        <span>Explore placement opportunities</span>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="benefit-icon">📄</span>
+                        <span>Apply for suitable drives</span>
+                    </div>
+
+                    <div class="benefit">
+                        <span class="benefit-icon">📊</span>
+                        <span>Track application status</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 RIGHT SECTION
+            ========================== -->
+
+            <section class="login-right">
+
+                <div class="login-form-box">
+
+                    <h2>Student Login</h2>
+
+                    <p class="login-subtitle">
+                        Enter your credentials to continue
+                    </p>
+
+                    <form onsubmit="studentLoginSubmit(event)">
+
+                        <div class="form-group">
+
+                            <label for="studentId">
+                                Student ID
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">🎓</span>
+
+                                <input
+                                    type="text"
+                                    id="studentId"
+                                    class="login-input"
+                                    placeholder="Enter Student ID"
+                                    required
+                                    autocomplete="username"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="password-row">
+
+                                <label for="password">
+                                    Password
+                                </label>
+
+                                <button
+                                    type="button"
+                                    class="show-password"
+                                    onclick="togglePassword()"
+                                >
+                                    Show
+                                </button>
+
+                            </div>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">🔒</span>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="login-input"
+                                    placeholder="Enter Password"
+                                    required
+                                    autocomplete="current-password"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="login-button"
+                        >
+                            LOGIN →
+                        </button>
+
+                    </form>
+
+
+                    <!-- Demo Credentials -->
+
+                    <div class="demo-box">
+
+                        <strong>Demo Login</strong><br><br>
+
+                        Student ID:
+                        <strong>STU1001</strong><br>
+
+                        Password:
+                        <strong>12345</strong>
+
+                    </div>
+
+
+                    <div
+                        id="loginMessage"
+                        class="form-message"
+                    ></div>
+
+
+                    <p class="account-text">
+
+                        Don't have an account?
+                        <a href="student-register.html">
+                            Create Account
+                        </a>
+
+                    </p>
+
+
+                    <a
+                        href="index.html"
+                        class="back-home"
+                    >
+                        ← Back to Home
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           PASSWORD SHOW / HIDE
+        ========================== */
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".show-password");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "Show";
+
+            }
+        }
+
+
+        /* =========================
+           STUDENT LOGIN
+        ========================== */
+
+        function studentLoginSubmit(event) {
+
+            event.preventDefault();
+
+            const studentId =
+                document.getElementById("studentId")
+                .value
+                .trim();
+
+            const password =
+                document.getElementById("password")
+                .value
+                .trim();
+
+            const message =
+                document.getElementById("loginMessage");
+
+
+            /*
+                DEMO LOGIN
+                Student ID: STU1001
+                Password: 12345
+            */
+
+            if (
+                studentId === "STU1001" &&
+                password === "12345"
+            ) {
+
+                localStorage.setItem(
+                    "loggedInRole",
+                    "student"
+                );
+
+                localStorage.setItem(
+                    "studentId",
+                    studentId
+                );
+
+                message.style.color = "#00804b";
+
+                message.textContent =
+                    "✓ Login successful! Redirecting...";
+
+                setTimeout(function () {
+
+                    window.location.href =
+                        "student.html";
+
+                }, 800);
+
+            } else {
+
+                message.style.color = "#d62828";
+
+                message.textContent =
+                    "✕ Invalid Student ID or Password.";
+
+            }
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,2911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Placement Drives | Student Placement System</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Algerian&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman", serif;
+            background: #f7f4ed;
+            color: #29231d;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            background: #241b14;
+            color: white;
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: Algerian, serif;
+            font-size: 24px;
+            color: #e8b95a;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e8b95a;
+        }
+
+        /* ================= HEADER ================= */
+
+        .hero {
+            padding: 65px 20px;
+            text-align: center;
+            background:
+                linear-gradient(rgba(36,27,20,0.88), rgba(36,27,20,0.88)),
+                radial-gradient(circle at top, #72552f, #241b14);
+            color: white;
+        }
+
+        .hero h1 {
+            font-family: Algerian, serif;
+            font-size: 42px;
+            color: #e8b95a;
+            margin-bottom: 15px;
+            animation: fadeDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 19px;
+            max-width: 850px;
+            margin: auto;
+            line-height: 1.6;
+            animation: fadeUp 1s ease;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 18px;
+            border: 1px solid #e8b95a;
+            border-radius: 30px;
+            color: #e8b95a;
+            font-size: 14px;
+        }
+
+        /* ================= FILTER AREA ================= */
+
+        .filter-section {
+            width: 92%;
+            max-width: 1250px;
+            margin: 35px auto 20px;
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .filter-title {
+            font-family: Algerian, serif;
+            font-size: 22px;
+            color: #5c3d1e;
+            margin-bottom: 20px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .filters input,
+        .filters select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d8c9b6;
+            border-radius: 10px;
+            outline: none;
+            font-family: "Times New Roman", serif;
+            font-size: 15px;
+            background: #fffdf9;
+        }
+
+        .filters input:focus,
+        .filters select:focus {
+            border-color: #b88332;
+            box-shadow: 0 0 0 3px rgba(184,131,50,0.12);
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            width: 92%;
+            max-width: 1250px;
+            margin: 25px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+            transition: 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 30px;
+            font-weight: bold;
+            color: #9b6821;
+        }
+
+        .stat-label {
+            margin-top: 5px;
+            color: #66594b;
+        }
+
+        /* ================= DRIVE CONTAINER ================= */
+
+        .drive-container {
+            width: 92%;
+            max-width: 1250px;
+            margin: 30px auto 60px;
+        }
+
+        #resultInfo {
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: #5c3d1e;
+            font-weight: bold;
+        }
+
+        .drives-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        /* ================= DRIVE CARD ================= */
+
+        .drive-card {
+            background: white;
+            border-radius: 18px;
+            padding: 23px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: 0.35s;
+            border: 1px solid #eee5d8;
+        }
+
+        .drive-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #b88332;
+        }
+
+        .drive-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.14);
+        }
+
+        .demo-label {
+            position: absolute;
+            right: 15px;
+            top: 17px;
+            background: #f2e4c8;
+            color: #76501e;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .company-name {
+            font-family: Algerian, serif;
+            font-size: 21px;
+            color: #5c3d1e;
+            margin: 10px 75px 10px 0;
+        }
+
+        .job-role {
+            font-size: 18px;
+            font-weight: bold;
+            color: #29231d;
+            margin-bottom: 15px;
+        }
+
+        .detail {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+            color: #5e554c;
+            font-size: 15px;
+        }
+
+        .detail strong {
+            color: #382c20;
+        }
+
+        .course-tag {
+            display: inline-block;
+            background: #eee5d8;
+            color: #5c3d1e;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 13px;
+            margin: 12px 0 8px;
+        }
+
+        .drive-description {
+            line-height: 1.5;
+            color: #655d54;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            border: none;
+            padding: 11px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: "Times New Roman", serif;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .details-btn {
+            background: #eee5d8;
+            color: #4e3821;
+            flex: 1;
+        }
+
+        .details-btn:hover {
+            background: #dfd0bb;
+        }
+
+        .apply-btn {
+            background: #241b14;
+            color: white;
+            flex: 1;
+        }
+
+        .apply-btn:hover {
+            background: #9b6821;
+        }
+
+        /* ================= NO RESULT ================= */
+
+        #noResult {
+            display: none;
+            text-align: center;
+            background: white;
+            padding: 50px 20px;
+            border-radius: 18px;
+            color: #66594b;
+        }
+
+        #noResult h2 {
+            font-family: Algerian, serif;
+            color: #5c3d1e;
+            margin-bottom: 10px;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.65);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #fffdf9;
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #5c3d1e;
+        }
+
+        .modal-content h2 {
+            font-family: Algerian, serif;
+            color: #5c3d1e;
+            margin-bottom: 10px;
+            padding-right: 30px;
+        }
+
+        .modal-content h3 {
+            margin-top: 20px;
+            color: #8a5b21;
+        }
+
+        .modal-content p {
+            line-height: 1.6;
+            margin-top: 8px;
+            color: #51483e;
+        }
+
+        .modal-list {
+            margin: 10px 0 0 20px;
+            line-height: 1.8;
+            color: #51483e;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #241b14;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer span {
+            color: #e8b95a;
+        }
+
+        /* ================= ANIMATIONS ================= */
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+            .drives-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 14px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .drives-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .card-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+    <div class="logo">PLACEMENT HUB</div>
+
+    <ul class="nav-links">
+        <li><a href="student.html">Dashboard</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="drives.html">Drives</a></li>
+        <li><a href="status.html">Status</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+    </ul>
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <h1>Placement Drives</h1>
+
+    <p>
+        Explore course-wise placement opportunities, discover suitable
+        career roles and apply for drives according to your eligibility.
+    </p>
+
+    <div class="hero-badge">
+        Multiple Courses • Multiple Roles • Easy Applications
+    </div>
+
+</section>
+
+
+<!-- ================= FILTER ================= -->
+
+<section class="filter-section">
+
+    <div class="filter-title">
+        Find Your Opportunity
+    </div>
+
+    <div class="filters">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search company, role or skill..."
+            onkeyup="filterDrives()"
+        >
+
+        <select id="courseFilter" onchange="filterDrives()">
+            <option value="all">All Courses</option>
+            <option value="BCA">BCA</option>
+            <option value="B.Tech">B.Tech / BE</option>
+            <option value="BBA">BBA</option>
+            <option value="MBA">MBA</option>
+            <option value="B.Com">B.Com</option>
+            <option value="M.Com">M.Com</option>
+            <option value="B.Pharm">B.Pharm</option>
+            <option value="D.Pharm">D.Pharm</option>
+            <option value="Law">Law</option>
+            <option value="B.Sc">B.Sc / M.Sc</option>
+            <option value="BA">BA / MA</option>
+            <option value="BHM">BHM / Hospitality</option>
+            <option value="Medical">Medical & Allied Health</option>
+        </select>
+
+        <select id="locationFilter" onchange="filterDrives()">
+            <option value="all">All Locations</option>
+            <option value="Noida">Noida</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Gurugram">Gurugram</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Pune">Pune</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Dehradun">Dehradun</option>
+            <option value="Roorkee">Roorkee</option>
+            <option value="Remote">Remote</option>
+        </select>
+
+        <select id="typeFilter" onchange="filterDrives()">
+            <option value="all">All Job Types</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Internship">Internship</option>
+            <option value="Internship + Full Time">Internship + Full Time</option>
+        </select>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat-box">
+        <span class="stat-number" id="totalDrives">0</span>
+        <span class="stat-label">Total Drives</span>
+    </div>
+
+    <div class="stat-box">
+        <span class="stat-number" id="totalCourses">14</span>
+        <span class="stat-label">Course Categories</span>
+    </div>
+
+    <div class="stat-box">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Companies / Course</span>
+    </div>
+
+    <div class="stat-box">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Application Access</span>
+    </div>
+
+</section>
+
+
+<!-- ================= DRIVES ================= -->
+
+<main class="drive-container">
+
+    <div id="resultInfo">
+        Showing placement opportunities
+    </div>
+
+    <div class="drives-grid" id="drivesGrid"></div>
+
+    <div id="noResult">
+        <h2>No Drives Found</h2>
+        <p>
+            Try changing the course, location or search keyword.
+        </p>
+    </div>
+
+</main>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="detailsModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal()">&times;</span>
+
+        <h2 id="modalCompany"></h2>
+
+        <p>
+            <strong>Position:</strong>
+            <span id="modalRole"></span>
+        </p>
+
+        <p>
+            <strong>Course:</strong>
+            <span id="modalCourse"></span>
+        </p>
+
+        <p>
+            <strong>Location:</strong>
+            <span id="modalLocation"></span>
+        </p>
+
+        <p>
+            <strong>Job Type:</strong>
+            <span id="modalType"></span>
+        </p>
+
+        <p>
+            <strong>Package:</strong>
+            <span id="modalPackage"></span>
+        </p>
+
+        <p>
+            <strong>Eligibility:</strong>
+            <span id="modalEligibility"></span>
+        </p>
+
+        <h3>About This Drive</h3>
+
+        <p id="modalDescription"></p>
+
+        <h3>Required Skills</h3>
+
+        <ul class="modal-list" id="modalSkills"></ul>
+
+        <h3>Selection Process</h3>
+
+        <ul class="modal-list" id="modalSelection"></ul>
+
+        <button
+            class="btn apply-btn"
+            style="margin-top:20px;width:100%;"
+            onclick="applyFromModal()"
+        >
+            Apply Now
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 <span>Student Placement Management System</span>
+        | Placement Drive Portal
+    </p>
+
+    <p style="margin-top:8px;font-size:13px;color:#cfc5b8;">
+        Demo placement data is provided for project demonstration.
+        Verify actual vacancies with the employer before applying.
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   PLACEMENT DRIVE DATA
+   14 COURSE CATEGORIES
+   10+ SAMPLE DRIVES FOR EACH CATEGORY
+========================================================= */
+
+const drives = [
+
+/* ================= BCA ================= */
+
+{
+    id:"BCA01",
+    company:"TechNova Solutions",
+    role:"Junior Software Developer",
+    course:"BCA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹4.2 LPA",
+    eligibility:"BCA with basic programming knowledge",
+    skills:["HTML","CSS","JavaScript","Python"],
+    selection:["Aptitude Test","Technical Interview","HR Interview"],
+    description:"Sample software development opportunity designed for students with programming and web development fundamentals."
+},
+
+{
+    id:"BCA02",
+    company:"DataBridge Technologies",
+    role:"Data Analyst Trainee",
+    course:"BCA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"BCA with basic Excel and SQL knowledge",
+    skills:["Excel","SQL","Python","Data Analysis"],
+    selection:["Online Test","Technical Interview","HR"],
+    description:"Sample data analytics role focused on data preparation, reporting and basic business analysis."
+},
+
+{
+    id:"BCA03",
+    company:"CodeCraft Systems",
+    role:"Web Developer",
+    course:"BCA",
+    location:"Delhi",
+    type:"Internship + Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"BCA with web development basics",
+    skills:["HTML","CSS","JavaScript","Bootstrap"],
+    selection:["Coding Test","Technical Interview","HR"],
+    description:"Sample web development opportunity for students interested in creating responsive websites."
+},
+
+{
+    id:"BCA04",
+    company:"CloudMatrix Technologies",
+    role:"Cloud Support Associate",
+    course:"BCA",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹4.5 LPA",
+    eligibility:"BCA with networking basics",
+    skills:["Cloud Basics","Networking","Linux"],
+    selection:["Aptitude","Technical","HR"],
+    description:"Sample entry-level cloud support position."
+},
+
+{
+    id:"BCA05",
+    company:"PixelByte Labs",
+    role:"Frontend Developer",
+    course:"BCA",
+    location:"Remote",
+    type:"Internship + Full Time",
+    package:"₹4.1 LPA",
+    eligibility:"BCA with frontend skills",
+    skills:["HTML","CSS","JavaScript","React Basics"],
+    selection:["Task","Technical Interview","HR"],
+    description:"Sample frontend development opportunity."
+},
+
+{
+    id:"BCA06",
+    company:"InnovaSoft Technologies",
+    role:"Python Developer Trainee",
+    course:"BCA",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹4.3 LPA",
+    eligibility:"BCA with Python basics",
+    skills:["Python","OOP","SQL"],
+    selection:["Coding Test","Technical","HR"],
+    description:"Sample Python development trainee opportunity."
+},
+
+{
+    id:"BCA07",
+    company:"NextGen Digital",
+    role:"QA Testing Associate",
+    course:"BCA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.9 LPA",
+    eligibility:"BCA",
+    skills:["Manual Testing","SQL","Test Cases"],
+    selection:["Aptitude","Testing Test","HR"],
+    description:"Sample software testing opportunity."
+},
+
+{
+    id:"BCA08",
+    company:"AppSphere Technologies",
+    role:"Application Support Trainee",
+    course:"BCA",
+    location:"Hyderabad",
+    type:"Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"BCA",
+    skills:["SQL","Troubleshooting","Communication"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample application support position."
+},
+
+{
+    id:"BCA09",
+    company:"DigitalCore Systems",
+    role:"Business Data Associate",
+    course:"BCA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.4 LPA",
+    eligibility:"BCA with analytical skills",
+    skills:["Excel","SQL","Power BI"],
+    selection:["Aptitude","Technical","HR"],
+    description:"Sample business data role."
+},
+
+{
+    id:"BCA10",
+    company:"WebNest Technologies",
+    role:"UI Developer Trainee",
+    course:"BCA",
+    location:"Delhi",
+    type:"Internship",
+    package:"₹15,000/month",
+    eligibility:"BCA",
+    skills:["HTML","CSS","JavaScript"],
+    selection:["Portfolio Review","Technical","HR"],
+    description:"Sample UI development internship."
+},
+
+
+/* ================= B.TECH ================= */
+
+{
+    id:"BT01",
+    company:"TechCore Engineering",
+    role:"Software Engineer",
+    course:"B.Tech",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹6.2 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["Java","Python","DSA","SQL"],
+    selection:["Coding Test","Technical","HR"],
+    description:"Sample engineering role for technology students."
+},
+
+{
+    id:"BT02",
+    company:"CloudAxis Systems",
+    role:"Cloud Engineer Trainee",
+    course:"B.Tech",
+    location:"Hyderabad",
+    type:"Full Time",
+    package:"₹6.0 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["Cloud","Linux","Networking"],
+    selection:["Aptitude","Technical","HR"],
+    description:"Sample cloud engineering role."
+},
+
+{
+    id:"BT03",
+    company:"InfiniTech Labs",
+    role:"Machine Learning Trainee",
+    course:"B.Tech",
+    location:"Pune",
+    type:"Internship + Full Time",
+    package:"₹6.5 LPA",
+    eligibility:"B.Tech CSE/AI/DS",
+    skills:["Python","ML","Statistics"],
+    selection:["Coding","Technical","HR"],
+    description:"Sample machine learning opportunity."
+},
+
+{
+    id:"BT04",
+    company:"CyberShield Technologies",
+    role:"Cyber Security Associate",
+    course:"B.Tech",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹5.8 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["Networking","Cyber Security","Linux"],
+    selection:["Technical Test","Interview","HR"],
+    description:"Sample cyber security position."
+},
+
+{
+    id:"BT05",
+    company:"DevMatrix Solutions",
+    role:"Backend Developer",
+    course:"B.Tech",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹6.1 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["Java","Python","SQL","APIs"],
+    selection:["Coding","Technical","HR"],
+    description:"Sample backend development role."
+},
+
+{
+    id:"BT06",
+    company:"ElectroNova Industries",
+    role:"Embedded Systems Trainee",
+    course:"B.Tech",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹5.5 LPA",
+    eligibility:"B.Tech ECE/EEE",
+    skills:["C","Microcontrollers","Embedded Systems"],
+    selection:["Technical Test","Interview"],
+    description:"Sample embedded systems opportunity."
+},
+
+{
+    id:"BT07",
+    company:"AutoTech Innovations",
+    role:"Automation Engineer",
+    course:"B.Tech",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹5.7 LPA",
+    eligibility:"B.Tech ME/ECE",
+    skills:["Automation","PLC","Engineering"],
+    selection:["Technical","HR"],
+    description:"Sample automation engineering role."
+},
+
+{
+    id:"BT08",
+    company:"DataSphere Labs",
+    role:"Data Engineer Trainee",
+    course:"B.Tech",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹6.4 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["SQL","Python","Data Structures"],
+    selection:["Coding","Technical","HR"],
+    description:"Sample data engineering opportunity."
+},
+
+{
+    id:"BT09",
+    company:"AppTech Solutions",
+    role:"Mobile App Developer",
+    course:"B.Tech",
+    location:"Hyderabad",
+    type:"Full Time",
+    package:"₹5.9 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["Java","Kotlin","Android"],
+    selection:["Coding","Technical","HR"],
+    description:"Sample mobile application development role."
+},
+
+{
+    id:"BT10",
+    company:"FutureGrid Technologies",
+    role:"DevOps Trainee",
+    course:"B.Tech",
+    location:"Remote",
+    type:"Internship + Full Time",
+    package:"₹6.0 LPA",
+    eligibility:"B.Tech CSE/IT",
+    skills:["Linux","Git","Cloud","CI/CD"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample DevOps trainee opportunity."
+},
+
+
+/* ================= BBA ================= */
+
+{
+    id:"BBA01",
+    company:"MarketEdge Solutions",
+    role:"Business Development Executive",
+    course:"BBA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"BBA",
+    skills:["Communication","Sales","MS Office"],
+    selection:["Aptitude","Interview","HR"],
+    description:"Sample business development opportunity."
+},
+
+{
+    id:"BBA02",
+    company:"GrowthPoint Services",
+    role:"Marketing Executive",
+    course:"BBA",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.6 LPA",
+    eligibility:"BBA",
+    skills:["Marketing","Communication","Excel"],
+    selection:["Assessment","Interview"],
+    description:"Sample marketing role."
+},
+
+{
+    id:"BBA03",
+    company:"BusinessBridge Pvt Ltd",
+    role:"Management Trainee",
+    course:"BBA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"BBA",
+    skills:["Management","Excel","Communication"],
+    selection:["Aptitude","Interview","HR"],
+    description:"Sample management trainee role."
+},
+
+{
+    id:"BBA04",
+    company:"RetailSphere",
+    role:"Retail Operations Associate",
+    course:"BBA",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"BBA",
+    skills:["Operations","Communication","Excel"],
+    selection:["Interview","HR"],
+    description:"Sample retail operations opportunity."
+},
+
+{
+    id:"BBA05",
+    company:"BrandVista",
+    role:"Digital Marketing Trainee",
+    course:"BBA",
+    location:"Remote",
+    type:"Internship + Full Time",
+    package:"₹3.7 LPA",
+    eligibility:"BBA",
+    skills:["Digital Marketing","Social Media","SEO"],
+    selection:["Task","Interview"],
+    description:"Sample digital marketing role."
+},
+
+{
+    id:"BBA06",
+    company:"FinanceBridge",
+    role:"Business Analyst Trainee",
+    course:"BBA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹4.1 LPA",
+    eligibility:"BBA",
+    skills:["Excel","Analysis","PowerPoint"],
+    selection:["Aptitude","Interview"],
+    description:"Sample business analysis opportunity."
+},
+
+{
+    id:"BBA07",
+    company:"PeopleFirst Services",
+    role:"HR Executive Trainee",
+    course:"BBA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹3.7 LPA",
+    eligibility:"BBA",
+    skills:["HR Basics","Communication","Excel"],
+    selection:["Aptitude","HR Interview"],
+    description:"Sample HR opportunity."
+},
+
+{
+    id:"BBA08",
+    company:"SalesPro India",
+    role:"Sales Associate",
+    course:"BBA",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"BBA",
+    skills:["Sales","Negotiation","Communication"],
+    selection:["Interview","HR"],
+    description:"Sample sales role."
+},
+
+{
+    id:"BBA09",
+    company:"InsightWorks",
+    role:"Operations Analyst",
+    course:"BBA",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.9 LPA",
+    eligibility:"BBA",
+    skills:["Excel","Operations","Analysis"],
+    selection:["Assessment","Interview"],
+    description:"Sample operations analyst opportunity."
+},
+
+{
+    id:"BBA10",
+    company:"CareerAxis",
+    role:"Client Relationship Executive",
+    course:"BBA",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.4 LPA",
+    eligibility:"BBA",
+    skills:["Communication","CRM","Customer Service"],
+    selection:["Interview","HR"],
+    description:"Sample client relationship role."
+},
+
+
+/* ================= MBA ================= */
+
+{
+    id:"MBA01",
+    company:"StrategicEdge Consulting",
+    role:"Management Consultant Trainee",
+    course:"MBA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹7.2 LPA",
+    eligibility:"MBA",
+    skills:["Strategy","Excel","Presentation"],
+    selection:["Case Study","Interview","HR"],
+    description:"Sample consulting opportunity."
+},
+
+{
+    id:"MBA02",
+    company:"FinanceFirst",
+    role:"Financial Analyst",
+    course:"MBA",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹7.0 LPA",
+    eligibility:"MBA Finance",
+    skills:["Finance","Excel","Financial Analysis"],
+    selection:["Aptitude","Technical","HR"],
+    description:"Sample finance analyst role."
+},
+
+{
+    id:"MBA03",
+    company:"MarketVision",
+    role:"Marketing Manager Trainee",
+    course:"MBA",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹6.8 LPA",
+    eligibility:"MBA Marketing",
+    skills:["Marketing","Strategy","Communication"],
+    selection:["Case Study","Interview"],
+    description:"Sample marketing management role."
+},
+
+{
+    id:"MBA04",
+    company:"PeopleCore",
+    role:"HR Management Trainee",
+    course:"MBA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹6.5 LPA",
+    eligibility:"MBA HR",
+    skills:["HR","Recruitment","Communication"],
+    selection:["Assessment","Interview"],
+    description:"Sample HR management opportunity."
+},
+
+{
+    id:"MBA05",
+    company:"BusinessPulse",
+    role:"Business Analyst",
+    course:"MBA",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹7.4 LPA",
+    eligibility:"MBA",
+    skills:["Excel","Power BI","Analysis"],
+    selection:["Case Study","Technical","HR"],
+    description:"Sample business analytics opportunity."
+},
+
+{
+    id:"MBA06",
+    company:"GrowthWorks",
+    role:"Product Management Trainee",
+    course:"MBA",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹7.1 LPA",
+    eligibility:"MBA",
+    skills:["Product Strategy","Research","Communication"],
+    selection:["Case Study","Interview"],
+    description:"Sample product management role."
+},
+
+{
+    id:"MBA07",
+    company:"SupplyChain Pro",
+    role:"Operations Manager Trainee",
+    course:"MBA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹6.6 LPA",
+    eligibility:"MBA Operations",
+    skills:["Operations","Supply Chain","Excel"],
+    selection:["Aptitude","Interview"],
+    description:"Sample operations management role."
+},
+
+{
+    id:"MBA08",
+    company:"BrandSphere",
+    role:"Brand Executive",
+    course:"MBA",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹6.7 LPA",
+    eligibility:"MBA Marketing",
+    skills:["Branding","Marketing","Presentation"],
+    selection:["Case Study","Interview"],
+    description:"Sample brand management opportunity."
+},
+
+{
+    id:"MBA09",
+    company:"TalentBridge",
+    role:"Talent Acquisition Associate",
+    course:"MBA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹6.3 LPA",
+    eligibility:"MBA HR",
+    skills:["Recruitment","HR","Communication"],
+    selection:["Interview","HR"],
+    description:"Sample talent acquisition role."
+},
+
+{
+    id:"MBA10",
+    company:"AnalyticsHub",
+    role:"Business Intelligence Analyst",
+    course:"MBA",
+    location:"Hyderabad",
+    type:"Full Time",
+    package:"₹7.3 LPA",
+    eligibility:"MBA Business Analytics",
+    skills:["Power BI","SQL","Excel"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample business intelligence role."
+},
+
+
+/* ================= B.COM ================= */
+
+{
+    id:"BCOM01",
+    company:"AccountPro Services",
+    role:"Accounts Executive",
+    course:"B.Com",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.4 LPA",
+    eligibility:"B.Com",
+    skills:["Accounting","Excel","Tally"],
+    selection:["Accounting Test","Interview"],
+    description:"Sample accounting opportunity."
+},
+
+{
+    id:"BCOM02",
+    company:"FinLedger Solutions",
+    role:"Finance Associate",
+    course:"B.Com",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.6 LPA",
+    eligibility:"B.Com",
+    skills:["Finance","Excel","Accounting"],
+    selection:["Aptitude","Interview"],
+    description:"Sample finance associate role."
+},
+
+{
+    id:"BCOM03",
+    company:"TaxPoint Services",
+    role:"Tax Assistant",
+    course:"B.Com",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"B.Com",
+    skills:["Taxation","Accounting","Excel"],
+    selection:["Technical Test","Interview"],
+    description:"Sample taxation opportunity."
+},
+
+{
+    id:"BCOM04",
+    company:"AuditWorks",
+    role:"Audit Associate",
+    course:"B.Com",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"B.Com",
+    skills:["Auditing","Accounting","Excel"],
+    selection:["Test","Interview"],
+    description:"Sample audit role."
+},
+
+{
+    id:"BCOM05",
+    company:"CommerceConnect",
+    role:"Business Operations Associate",
+    course:"B.Com",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.7 LPA",
+    eligibility:"B.Com",
+    skills:["Excel","Operations","Communication"],
+    selection:["Assessment","Interview"],
+    description:"Sample business operations role."
+},
+
+{
+    id:"BCOM06",
+    company:"LedgerLine",
+    role:"Junior Accountant",
+    course:"B.Com",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.2 LPA",
+    eligibility:"B.Com",
+    skills:["Tally","Accounting","GST"],
+    selection:["Accounting Test","HR"],
+    description:"Sample junior accountant role."
+},
+
+{
+    id:"BCOM07",
+    company:"FinServe India",
+    role:"Finance Trainee",
+    course:"B.Com",
+    location:"Mumbai",
+    type:"Internship + Full Time",
+    package:"₹3.9 LPA",
+    eligibility:"B.Com",
+    skills:["Finance","Excel","Analysis"],
+    selection:["Test","Interview"],
+    description:"Sample finance trainee opportunity."
+},
+
+{
+    id:"BCOM08",
+    company:"BusinessLedger",
+    role:"MIS Executive",
+    course:"B.Com",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"B.Com",
+    skills:["Excel","MIS","Reporting"],
+    selection:["Excel Test","Interview"],
+    description:"Sample MIS opportunity."
+},
+
+{
+    id:"BCOM09",
+    company:"TaxWise Consulting",
+    role:"Tax Associate",
+    course:"B.Com",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.7 LPA",
+    eligibility:"B.Com",
+    skills:["Taxation","GST","Excel"],
+    selection:["Technical Test","Interview"],
+    description:"Sample tax associate role."
+},
+
+{
+    id:"BCOM10",
+    company:"FinEdge Associates",
+    role:"Accounts Trainee",
+    course:"B.Com",
+    location:"Roorkee",
+    type:"Internship + Full Time",
+    package:"₹3.3 LPA",
+    eligibility:"B.Com",
+    skills:["Accounting","Tally","Excel"],
+    selection:["Test","Interview"],
+    description:"Sample accounts trainee role."
+},
+
+
+/* ================= M.COM ================= */
+
+{
+    id:"MCOM01",
+    company:"FinanceResearch Hub",
+    role:"Financial Research Associate",
+    course:"M.Com",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹5.2 LPA",
+    eligibility:"M.Com",
+    skills:["Finance","Research","Excel"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample financial research role."
+},
+
+{
+    id:"MCOM02",
+    company:"AuditSphere",
+    role:"Audit Analyst",
+    course:"M.Com",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹5.0 LPA",
+    eligibility:"M.Com",
+    skills:["Auditing","Accounting","Excel"],
+    selection:["Test","Interview"],
+    description:"Sample audit analyst opportunity."
+},
+
+{
+    id:"MCOM03",
+    company:"TaxResearch India",
+    role:"Tax Analyst",
+    course:"M.Com",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹5.1 LPA",
+    eligibility:"M.Com",
+    skills:["Taxation","Research","Excel"],
+    selection:["Technical","Interview"],
+    description:"Sample tax analyst role."
+},
+
+{
+    id:"MCOM04",
+    company:"FinInsight",
+    role:"Investment Research Trainee",
+    course:"M.Com",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹5.4 LPA",
+    eligibility:"M.Com",
+    skills:["Finance","Research","Analysis"],
+    selection:["Aptitude","Technical","HR"],
+    description:"Sample investment research role."
+},
+
+{
+    id:"MCOM05",
+    company:"CommerceAnalytics",
+    role:"Business Research Analyst",
+    course:"M.Com",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹4.9 LPA",
+    eligibility:"M.Com",
+    skills:["Research","Excel","Analysis"],
+    selection:["Assessment","Interview"],
+    description:"Sample business research role."
+},
+
+{
+    id:"MCOM06",
+    company:"LedgerResearch",
+    role:"Accounting Analyst",
+    course:"M.Com",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹4.8 LPA",
+    eligibility:"M.Com",
+    skills:["Accounting","Excel","Analysis"],
+    selection:["Test","Interview"],
+    description:"Sample accounting analyst opportunity."
+},
+
+{
+    id:"MCOM07",
+    company:"FinGrowth Services",
+    role:"Finance Executive",
+    course:"M.Com",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹5.0 LPA",
+    eligibility:"M.Com",
+    skills:["Finance","Excel","Reporting"],
+    selection:["Test","Interview"],
+    description:"Sample finance executive role."
+},
+
+{
+    id:"MCOM08",
+    company:"CorporateAudit Hub",
+    role:"Audit Trainee",
+    course:"M.Com",
+    location:"Gurugram",
+    type:"Internship + Full Time",
+    package:"₹4.7 LPA",
+    eligibility:"M.Com",
+    skills:["Audit","Accounting","Excel"],
+    selection:["Test","Interview"],
+    description:"Sample audit trainee opportunity."
+},
+
+{
+    id:"MCOM09",
+    company:"TaxBridge",
+    role:"Tax Research Associate",
+    course:"M.Com",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹5.3 LPA",
+    eligibility:"M.Com",
+    skills:["Tax","Research","Excel"],
+    selection:["Technical","Interview"],
+    description:"Sample tax research role."
+},
+
+{
+    id:"MCOM10",
+    company:"BusinessFinance Group",
+    role:"Financial Analyst",
+    course:"M.Com",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹5.5 LPA",
+    eligibility:"M.Com",
+    skills:["Finance","Excel","Power BI"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample financial analyst role."
+},
+
+
+/* ================= B.PHARM ================= */
+
+{
+    id:"BPHARM01",
+    company:"MediCare Labs",
+    role:"Quality Control Trainee",
+    course:"B.Pharm",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"B.Pharm",
+    skills:["Quality Control","Pharma Basics","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample pharmaceutical quality control role."
+},
+
+{
+    id:"BPHARM02",
+    company:"PharmaNova",
+    role:"Production Trainee",
+    course:"B.Pharm",
+    location:"Haridwar",
+    type:"Full Time",
+    package:"₹3.6 LPA",
+    eligibility:"B.Pharm",
+    skills:["Production","GMP","Documentation"],
+    selection:["Technical","HR"],
+    description:"Sample pharmaceutical production opportunity."
+},
+
+{
+    id:"BPHARM03",
+    company:"LifeScience Research",
+    role:"Research Assistant",
+    course:"B.Pharm",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"B.Pharm",
+    skills:["Research","Pharmacology","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample pharmaceutical research role."
+},
+
+{
+    id:"BPHARM04",
+    company:"HealthCore Pharma",
+    role:"Medical Information Associate",
+    course:"B.Pharm",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.1 LPA",
+    eligibility:"B.Pharm",
+    skills:["Medical Information","Communication","Pharma"],
+    selection:["Assessment","Interview"],
+    description:"Sample medical information opportunity."
+},
+
+{
+    id:"BPHARM05",
+    company:"BioHealth Labs",
+    role:"Quality Assurance Trainee",
+    course:"B.Pharm",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.9 LPA",
+    eligibility:"B.Pharm",
+    skills:["QA","GMP","Documentation"],
+    selection:["Technical","HR"],
+    description:"Sample QA trainee role."
+},
+
+{
+    id:"BPHARM06",
+    company:"PharmaResearch India",
+    role:"Clinical Research Trainee",
+    course:"B.Pharm",
+    location:"Delhi",
+    type:"Internship + Full Time",
+    package:"₹4.2 LPA",
+    eligibility:"B.Pharm",
+    skills:["Clinical Research","Documentation","Pharma"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample clinical research opportunity."
+},
+
+{
+    id:"BPHARM07",
+    company:"MediScience Pvt Ltd",
+    role:"Regulatory Affairs Trainee",
+    course:"B.Pharm",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹4.3 LPA",
+    eligibility:"B.Pharm",
+    skills:["Regulatory Affairs","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample regulatory affairs role."
+},
+
+{
+    id:"BPHARM08",
+    company:"WellLife Pharmaceuticals",
+    role:"Drug Safety Associate",
+    course:"B.Pharm",
+    location:"Hyderabad",
+    type:"Full Time",
+    package:"₹4.1 LPA",
+    eligibility:"B.Pharm",
+    skills:["Pharmacovigilance","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample drug safety opportunity."
+},
+
+{
+    id:"BPHARM09",
+    company:"PharmaQuality Systems",
+    role:"Documentation Associate",
+    course:"B.Pharm",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.7 LPA",
+    eligibility:"B.Pharm",
+    skills:["Documentation","GMP","Excel"],
+    selection:["Test","Interview"],
+    description:"Sample pharma documentation role."
+},
+
+{
+    id:"BPHARM10",
+    company:"BioCare Research",
+    role:"Laboratory Trainee",
+    course:"B.Pharm",
+    location:"Dehradun",
+    type:"Internship",
+    package:"₹18,000/month",
+    eligibility:"B.Pharm",
+    skills:["Laboratory","Research","Pharma"],
+    selection:["Technical","Interview"],
+    description:"Sample laboratory internship."
+},
+
+
+/* ================= D.PHARM ================= */
+
+{
+    id:"DPHARM01",
+    company:"Community Pharmacy Network",
+    role:"Pharmacy Assistant",
+    course:"D.Pharm",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹2.8 LPA",
+    eligibility:"D.Pharm",
+    skills:["Pharmacy","Inventory","Communication"],
+    selection:["Technical","Interview"],
+    description:"Sample pharmacy assistant role."
+},
+
+{
+    id:"DPHARM02",
+    company:"MediStore Services",
+    role:"Pharmacy Executive",
+    course:"D.Pharm",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹2.9 LPA",
+    eligibility:"D.Pharm",
+    skills:["Pharmacy","Inventory","Customer Service"],
+    selection:["Interview","HR"],
+    description:"Sample pharmacy executive role."
+},
+
+{
+    id:"DPHARM03",
+    company:"HealthPlus Pharmacy",
+    role:"Pharmacy Trainee",
+    course:"D.Pharm",
+    location:"Dehradun",
+    type:"Internship + Full Time",
+    package:"₹2.7 LPA",
+    eligibility:"D.Pharm",
+    skills:["Pharmacy","Medicine Basics"],
+    selection:["Technical","Interview"],
+    description:"Sample pharmacy trainee opportunity."
+},
+
+{
+    id:"DPHARM04",
+    company:"CarePoint Pharmacy",
+    role:"Inventory Associate",
+    course:"D.Pharm",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹2.8 LPA",
+    eligibility:"D.Pharm",
+    skills:["Inventory","Pharmacy","Excel"],
+    selection:["Interview"],
+    description:"Sample inventory role."
+},
+
+{
+    id:"DPHARM05",
+    company:"MediAssist Services",
+    role:"Medical Store Executive",
+    course:"D.Pharm",
+    location:"Roorkee",
+    type:"Full Time",
+    package:"₹2.6 LPA",
+    eligibility:"D.Pharm",
+    skills:["Pharmacy","Customer Service"],
+    selection:["Interview"],
+    description:"Sample medical store role."
+},
+
+{
+    id:"DPHARM06",
+    company:"WellCare Pharmacy",
+    role:"Pharmacy Associate",
+    course:"D.Pharm",
+    location:"Haridwar",
+    type:"Full Time",
+    package:"₹2.7 LPA",
+    eligibility:"D.Pharm",
+    skills:["Pharmacy","Inventory"],
+    selection:["Technical","HR"],
+    description:"Sample pharmacy associate role."
+},
+
+{
+    id:"DPHARM07",
+    company:"HealthBridge",
+    role:"Pharmacy Operations Trainee",
+    course:"D.Pharm",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹2.9 LPA",
+    eligibility:"D.Pharm",
+    skills:["Operations","Pharmacy","Communication"],
+    selection:["Interview"],
+    description:"Sample pharmacy operations role."
+},
+
+{
+    id:"DPHARM08",
+    company:"MediCare Retail",
+    role:"Retail Pharmacy Associate",
+    course:"D.Pharm",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹2.8 LPA",
+    eligibility:"D.Pharm",
+    skills:["Retail","Pharmacy","Communication"],
+    selection:["Interview"],
+    description:"Sample retail pharmacy opportunity."
+},
+
+{
+    id:"DPHARM09",
+    company:"LifeCare Pharmacy",
+    role:"Pharmacy Support Executive",
+    course:"D.Pharm",
+    location:"Lucknow",
+    type:"Full Time",
+    package:"₹2.7 LPA",
+    eligibility:"D.Pharm",
+    skills:["Pharmacy","Customer Service"],
+    selection:["Interview"],
+    description:"Sample pharmacy support role."
+},
+
+{
+    id:"DPHARM10",
+    company:"MediLink Services",
+    role:"Pharmacy Documentation Assistant",
+    course:"D.Pharm",
+    location:"Remote",
+    type:"Internship",
+    package:"₹15,000/month",
+    eligibility:"D.Pharm",
+    skills:["Documentation","Pharmacy","Excel"],
+    selection:["Assessment","Interview"],
+    description:"Sample pharmacy documentation internship."
+},
+
+
+/* ================= LAW ================= */
+
+{
+    id:"LAW01",
+    company:"LegalEdge Associates",
+    role:"Legal Associate Trainee",
+    course:"Law",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"LLB / BA LLB",
+    skills:["Legal Research","Drafting","Communication"],
+    selection:["Legal Test","Interview"],
+    description:"Sample legal associate opportunity."
+},
+
+{
+    id:"LAW02",
+    company:"LexBridge Partners",
+    role:"Legal Research Intern",
+    course:"Law",
+    location:"Noida",
+    type:"Internship",
+    package:"₹18,000/month",
+    eligibility:"LLB / BA LLB",
+    skills:["Legal Research","Case Analysis"],
+    selection:["Research Task","Interview"],
+    description:"Sample legal research internship."
+},
+
+{
+    id:"LAW03",
+    company:"JusticePoint Legal",
+    role:"Corporate Law Trainee",
+    course:"Law",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.5 LPA",
+    eligibility:"LLB",
+    skills:["Corporate Law","Drafting","Research"],
+    selection:["Legal Test","Interview"],
+    description:"Sample corporate law role."
+},
+
+{
+    id:"LAW04",
+    company:"LawSphere Consulting",
+    role:"Compliance Associate",
+    course:"Law",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹4.2 LPA",
+    eligibility:"LLB",
+    skills:["Compliance","Legal Research"],
+    selection:["Assessment","Interview"],
+    description:"Sample compliance role."
+},
+
+{
+    id:"LAW05",
+    company:"LegalMind Associates",
+    role:"Legal Documentation Executive",
+    course:"Law",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"LLB",
+    skills:["Documentation","Drafting"],
+    selection:["Test","Interview"],
+    description:"Sample legal documentation opportunity."
+},
+
+{
+    id:"LAW06",
+    company:"CorporateLex",
+    role:"Contract Analyst",
+    course:"Law",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹4.3 LPA",
+    eligibility:"LLB",
+    skills:["Contracts","Legal Research","Drafting"],
+    selection:["Case Study","Interview"],
+    description:"Sample contract analysis role."
+},
+
+{
+    id:"LAW07",
+    company:"LegalResearch Hub",
+    role:"Research Associate",
+    course:"Law",
+    location:"Remote",
+    type:"Internship + Full Time",
+    package:"₹3.9 LPA",
+    eligibility:"LLB / BA LLB",
+    skills:["Research","Case Analysis"],
+    selection:["Research Task","Interview"],
+    description:"Sample legal research opportunity."
+},
+
+{
+    id:"LAW08",
+    company:"LexPoint Services",
+    role:"Legal Operations Associate",
+    course:"Law",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹4.1 LPA",
+    eligibility:"LLB",
+    skills:["Legal Operations","Documentation"],
+    selection:["Assessment","Interview"],
+    description:"Sample legal operations role."
+},
+
+{
+    id:"LAW09",
+    company:"JusticeWorks",
+    role:"Legal Executive",
+    course:"Law",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"LLB",
+    skills:["Legal Drafting","Research"],
+    selection:["Legal Test","HR"],
+    description:"Sample legal executive opportunity."
+},
+
+{
+    id:"LAW10",
+    company:"LawConnect India",
+    role:"Legal Intern",
+    course:"Law",
+    location:"Delhi",
+    type:"Internship",
+    package:"₹15,000/month",
+    eligibility:"LLB / BA LLB",
+    skills:["Legal Research","Drafting"],
+    selection:["Task","Interview"],
+    description:"Sample legal internship."
+},
+
+
+/* ================= B.SC ================= */
+
+{
+    id:"BSC01",
+    company:"ScienceCore Labs",
+    role:"Laboratory Trainee",
+    course:"B.Sc",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.2 LPA",
+    eligibility:"B.Sc",
+    skills:["Laboratory","Research","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample laboratory opportunity."
+},
+
+{
+    id:"BSC02",
+    company:"DataScience Research",
+    role:"Data Research Trainee",
+    course:"B.Sc",
+    location:"Bengaluru",
+    type:"Internship + Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"B.Sc Statistics/Computer Science",
+    skills:["Python","Statistics","Research"],
+    selection:["Assessment","Technical"],
+    description:"Sample data research opportunity."
+},
+
+{
+    id:"BSC03",
+    company:"BioResearch Labs",
+    role:"Research Assistant",
+    course:"B.Sc",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"B.Sc Life Sciences",
+    skills:["Research","Laboratory","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample research assistant role."
+},
+
+{
+    id:"BSC04",
+    company:"ScienceVista",
+    role:"Quality Analyst",
+    course:"B.Sc",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.4 LPA",
+    eligibility:"B.Sc",
+    skills:["Quality","Documentation","Analysis"],
+    selection:["Test","Interview"],
+    description:"Sample quality analyst opportunity."
+},
+
+{
+    id:"BSC05",
+    company:"LabWorks India",
+    role:"Laboratory Associate",
+    course:"B.Sc",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.1 LPA",
+    eligibility:"B.Sc",
+    skills:["Laboratory","Research"],
+    selection:["Technical","HR"],
+    description:"Sample laboratory associate role."
+},
+
+{
+    id:"BSC06",
+    company:"AnalyticsResearch",
+    role:"Statistical Analyst Trainee",
+    course:"B.Sc",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.2 LPA",
+    eligibility:"B.Sc Statistics",
+    skills:["Statistics","Excel","Analysis"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample statistical analyst role."
+},
+
+{
+    id:"BSC07",
+    company:"ChemScience Labs",
+    role:"Lab Technician Trainee",
+    course:"B.Sc",
+    location:"Haridwar",
+    type:"Full Time",
+    package:"₹3.0 LPA",
+    eligibility:"B.Sc Chemistry",
+    skills:["Laboratory","Chemistry","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample laboratory trainee opportunity."
+},
+
+{
+    id:"BSC08",
+    company:"EcoScience Research",
+    role:"Environmental Research Assistant",
+    course:"B.Sc",
+    location:"Delhi",
+    type:"Internship",
+    package:"₹16,000/month",
+    eligibility:"B.Sc Environmental Science",
+    skills:["Research","Environment","Data Collection"],
+    selection:["Task","Interview"],
+    description:"Sample environmental research internship."
+},
+
+{
+    id:"BSC09",
+    company:"TechScience Solutions",
+    role:"Technical Support Associate",
+    course:"B.Sc",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.3 LPA",
+    eligibility:"B.Sc",
+    skills:["Technical Support","Communication"],
+    selection:["Assessment","Interview"],
+    description:"Sample technical support role."
+},
+
+{
+    id:"BSC10",
+    company:"ResearchBridge",
+    role:"Research Documentation Associate",
+    course:"B.Sc",
+    location:"Remote",
+    type:"Internship",
+    package:"₹15,000/month",
+    eligibility:"B.Sc",
+    skills:["Research","Documentation","Excel"],
+    selection:["Task","Interview"],
+    description:"Sample research documentation internship."
+},
+
+
+/* ================= BA ================= */
+
+{
+    id:"BA01",
+    company:"ContentSphere",
+    role:"Content Writer",
+    course:"BA",
+    location:"Remote",
+    type:"Full Time",
+    package:"₹3.2 LPA",
+    eligibility:"BA",
+    skills:["Writing","Research","Communication"],
+    selection:["Writing Test","Interview"],
+    description:"Sample content writing opportunity."
+},
+
+{
+    id:"BA02",
+    company:"MediaWorks India",
+    role:"Content Researcher",
+    course:"BA",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.3 LPA",
+    eligibility:"BA",
+    skills:["Research","Writing","Communication"],
+    selection:["Research Task","Interview"],
+    description:"Sample content research role."
+},
+
+{
+    id:"BA03",
+    company:"PeopleConnect",
+    role:"HR Coordinator",
+    course:"BA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹3.4 LPA",
+    eligibility:"BA",
+    skills:["Communication","HR","Excel"],
+    selection:["Assessment","Interview"],
+    description:"Sample HR coordination role."
+},
+
+{
+    id:"BA04",
+    company:"EduBridge",
+    role:"Academic Counselor",
+    course:"BA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"BA",
+    skills:["Communication","Counselling","MS Office"],
+    selection:["Communication Test","Interview"],
+    description:"Sample academic counseling role."
+},
+
+{
+    id:"BA05",
+    company:"CreativeDesk",
+    role:"Creative Content Associate",
+    course:"BA",
+    location:"Remote",
+    type:"Internship + Full Time",
+    package:"₹3.1 LPA",
+    eligibility:"BA",
+    skills:["Writing","Creativity","Research"],
+    selection:["Writing Task","Interview"],
+    description:"Sample creative content opportunity."
+},
+
+{
+    id:"BA06",
+    company:"CommunicationHub",
+    role:"Communication Executive",
+    course:"BA",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.4 LPA",
+    eligibility:"BA",
+    skills:["Communication","MS Office"],
+    selection:["Assessment","Interview"],
+    description:"Sample communication role."
+},
+
+{
+    id:"BA07",
+    company:"ResearchPoint",
+    role:"Research Assistant",
+    course:"BA",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.3 LPA",
+    eligibility:"BA",
+    skills:["Research","Analysis","Writing"],
+    selection:["Research Task","Interview"],
+    description:"Sample research opportunity."
+},
+
+{
+    id:"BA08",
+    company:"SocialMedia Works",
+    role:"Social Media Executive",
+    course:"BA",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"BA",
+    skills:["Social Media","Content","Communication"],
+    selection:["Task","Interview"],
+    description:"Sample social media role."
+},
+
+{
+    id:"BA09",
+    company:"KnowledgeBridge",
+    role:"Knowledge Associate",
+    course:"BA",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹3.6 LPA",
+    eligibility:"BA",
+    skills:["Research","Writing","Excel"],
+    selection:["Assessment","Interview"],
+    description:"Sample knowledge associate opportunity."
+},
+
+{
+    id:"BA10",
+    company:"CultureConnect",
+    role:"Community Executive",
+    course:"BA",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.2 LPA",
+    eligibility:"BA",
+    skills:["Communication","Community Management"],
+    selection:["Interview","HR"],
+    description:"Sample community executive role."
+},
+
+
+/* ================= BHM ================= */
+
+{
+    id:"BHM01",
+    company:"GrandStay Hotels",
+    role:"Hotel Operations Trainee",
+    course:"BHM",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.2 LPA",
+    eligibility:"BHM",
+    skills:["Hospitality","Operations","Communication"],
+    selection:["Interview","HR"],
+    description:"Sample hotel operations opportunity."
+},
+
+{
+    id:"BHM02",
+    company:"RoyalVista Hospitality",
+    role:"Front Office Executive",
+    course:"BHM",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.0 LPA",
+    eligibility:"BHM",
+    skills:["Front Office","Communication","Customer Service"],
+    selection:["Interview"],
+    description:"Sample front office opportunity."
+},
+
+{
+    id:"BHM03",
+    company:"TravelNest Hotels",
+    role:"Guest Relations Executive",
+    course:"BHM",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹3.1 LPA",
+    eligibility:"BHM",
+    skills:["Guest Relations","Communication"],
+    selection:["Interview","HR"],
+    description:"Sample guest relations role."
+},
+
+{
+    id:"BHM04",
+    company:"HospitalityWorld",
+    role:"Food & Beverage Trainee",
+    course:"BHM",
+    location:"Mumbai",
+    type:"Full Time",
+    package:"₹3.0 LPA",
+    eligibility:"BHM",
+    skills:["F&B","Hospitality","Communication"],
+    selection:["Practical","Interview"],
+    description:"Sample food and beverage opportunity."
+},
+
+{
+    id:"BHM05",
+    company:"EliteStay Resorts",
+    role:"Resort Operations Associate",
+    course:"BHM",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.3 LPA",
+    eligibility:"BHM",
+    skills:["Hospitality","Operations"],
+    selection:["Interview","HR"],
+    description:"Sample resort operations role."
+},
+
+{
+    id:"BHM06",
+    company:"CityHotel Group",
+    role:"Guest Service Associate",
+    course:"BHM",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.1 LPA",
+    eligibility:"BHM",
+    skills:["Customer Service","Communication"],
+    selection:["Interview"],
+    description:"Sample guest service opportunity."
+},
+
+{
+    id:"BHM07",
+    company:"TravelStay",
+    role:"Travel Desk Executive",
+    course:"BHM",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.0 LPA",
+    eligibility:"BHM",
+    skills:["Travel Desk","Communication","MS Office"],
+    selection:["Assessment","Interview"],
+    description:"Sample travel desk role."
+},
+
+{
+    id:"BHM08",
+    company:"LuxuryHospitality",
+    role:"Hospitality Management Trainee",
+    course:"BHM",
+    location:"Bengaluru",
+    type:"Internship + Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"BHM",
+    skills:["Hospitality","Management","Communication"],
+    selection:["Interview","HR"],
+    description:"Sample hospitality management role."
+},
+
+{
+    id:"BHM09",
+    company:"HotelConnect",
+    role:"Reservation Executive",
+    course:"BHM",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.0 LPA",
+    eligibility:"BHM",
+    skills:["Reservations","Communication","Computer Basics"],
+    selection:["Assessment","Interview"],
+    description:"Sample hotel reservation opportunity."
+},
+
+{
+    id:"BHM10",
+    company:"ResortCare",
+    role:"Customer Experience Associate",
+    course:"BHM",
+    location:"Remote",
+    type:"Internship",
+    package:"₹15,000/month",
+    eligibility:"BHM",
+    skills:["Customer Service","Communication"],
+    selection:["Interview"],
+    description:"Sample customer experience internship."
+},
+
+
+/* ================= MEDICAL & ALLIED HEALTH ================= */
+
+{
+    id:"MED01",
+    company:"HealthCare Research Centre",
+    role:"Clinical Data Assistant",
+    course:"Medical",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Clinical Data","Documentation","Excel"],
+    selection:["Assessment","Interview"],
+    description:"Sample clinical data opportunity."
+},
+
+{
+    id:"MED02",
+    company:"CarePlus Hospital Services",
+    role:"Hospital Administration Trainee",
+    course:"Medical",
+    location:"Delhi",
+    type:"Full Time",
+    package:"₹3.6 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Administration","Communication","Excel"],
+    selection:["Assessment","Interview"],
+    description:"Sample hospital administration role."
+},
+
+{
+    id:"MED03",
+    company:"MediResearch India",
+    role:"Clinical Research Assistant",
+    course:"Medical",
+    location:"Gurugram",
+    type:"Full Time",
+    package:"₹4.1 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Clinical Research","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample clinical research role."
+},
+
+{
+    id:"MED04",
+    company:"HealthData Solutions",
+    role:"Healthcare Data Associate",
+    course:"Medical",
+    location:"Bengaluru",
+    type:"Full Time",
+    package:"₹4.3 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Healthcare Data","Excel","Analysis"],
+    selection:["Assessment","Technical","HR"],
+    description:"Sample healthcare data opportunity."
+},
+
+{
+    id:"MED05",
+    company:"WellnessCare",
+    role:"Patient Care Coordinator",
+    course:"Medical",
+    location:"Noida",
+    type:"Full Time",
+    package:"₹3.4 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Patient Care","Communication"],
+    selection:["Interview","HR"],
+    description:"Sample patient care coordination role."
+},
+
+{
+    id:"MED06",
+    company:"MedAssist Research",
+    role:"Medical Documentation Associate",
+    course:"Medical",
+    location:"Hyderabad",
+    type:"Full Time",
+    package:"₹3.7 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Medical Documentation","Computer Basics"],
+    selection:["Assessment","Interview"],
+    description:"Sample medical documentation role."
+},
+
+{
+    id:"MED07",
+    company:"HealthBridge Labs",
+    role:"Laboratory Assistant",
+    course:"Medical",
+    location:"Dehradun",
+    type:"Full Time",
+    package:"₹3.2 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Laboratory","Documentation"],
+    selection:["Technical","Interview"],
+    description:"Sample laboratory opportunity."
+},
+
+{
+    id:"MED08",
+    company:"ClinicalWorks India",
+    role:"Clinical Operations Trainee",
+    course:"Medical",
+    location:"Mumbai",
+    type:"Internship + Full Time",
+    package:"₹4.0 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Clinical Operations","Communication"],
+    selection:["Assessment","Interview"],
+    description:"Sample clinical operations opportunity."
+},
+
+{
+    id:"MED09",
+    company:"CareData Systems",
+    role:"Healthcare Support Associate",
+    course:"Medical",
+    location:"Remote",
+    type:"Full Time",
+    package:"₹3.5 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Healthcare","Communication","Computer Basics"],
+    selection:["Assessment","Interview"],
+    description:"Sample healthcare support opportunity."
+},
+
+{
+    id:"MED10",
+    company:"MediCore Services",
+    role:"Healthcare Operations Executive",
+    course:"Medical",
+    location:"Pune",
+    type:"Full Time",
+    package:"₹3.8 LPA",
+    eligibility:"Medical / Allied Health",
+    skills:["Healthcare Operations","Excel","Communication"],
+    selection:["Assessment","Interview"],
+    description:"Sample healthcare operations role."
+}
+
+];
+
+
+/* =========================================================
+   DISPLAY DRIVES
+========================================================= */
+
+let selectedDrive = null;
+
+function displayDrives(data) {
+
+    const grid = document.getElementById("drivesGrid");
+    const noResult = document.getElementById("noResult");
+    const resultInfo = document.getElementById("resultInfo");
+
+    grid.innerHTML = "";
+
+    if (data.length === 0) {
+
+        noResult.style.display = "block";
+
+        resultInfo.innerText = "No placement opportunities found.";
+
+        return;
+    }
+
+    noResult.style.display = "none";
+
+    resultInfo.innerText =
+        "Showing " + data.length + " placement opportunities";
+
+    data.forEach(drive => {
+
+        const card = document.createElement("div");
+
+        card.className = "drive-card";
+
+        card.innerHTML = `
+
+            <span class="demo-label">DEMO DRIVE</span>
+
+            <div class="company-name">
+                ${drive.company}
+            </div>
+
+            <div class="job-role">
+                ${drive.role}
+            </div>
+
+            <div class="detail">
+                📚 <strong>Course:</strong> ${drive.course}
+            </div>
+
+            <div class="detail">
+                📍 <strong>Location:</strong> ${drive.location}
+            </div>
+
+            <div class="detail">
+                💼 <strong>Type:</strong> ${drive.type}
+            </div>
+
+            <div class="detail">
+                💰 <strong>Package:</strong> ${drive.package}
+            </div>
+
+            <span class="course-tag">
+                ${drive.eligibility}
+            </span>
+
+            <p class="drive-description">
+                ${drive.description}
+            </p>
+
+            <div class="card-buttons">
+
+                <button
+                    class="btn details-btn"
+                    onclick="showDetails('${drive.id}')">
+                    View Details
+                </button>
+
+                <button
+                    class="btn apply-btn"
+                    onclick="applyDrive('${drive.id}')">
+                    Apply Now
+                </button>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function filterDrives() {
+
+    const search =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const course =
+        document.getElementById("courseFilter").value;
+
+    const location =
+        document.getElementById("locationFilter").value;
+
+    const type =
+        document.getElementById("typeFilter").value;
+
+    const filtered = drives.filter(drive => {
+
+        const searchableText = (
+
+            drive.company + " " +
+            drive.role + " " +
+            drive.course + " " +
+            drive.location + " " +
+            drive.skills.join(" ")
+
+        ).toLowerCase();
+
+        const matchesSearch =
+            searchableText.includes(search);
+
+        const matchesCourse =
+            course === "all" ||
+            drive.course === course;
+
+        const matchesLocation =
+            location === "all" ||
+            drive.location === location;
+
+        const matchesType =
+            type === "all" ||
+            drive.type === type;
+
+        return (
+            matchesSearch &&
+            matchesCourse &&
+            matchesLocation &&
+            matchesType
+        );
+
+    });
+
+    displayDrives(filtered);
+}
+
+
+/* =========================================================
+   SHOW DETAILS
+========================================================= */
+
+function showDetails(id) {
+
+    const drive =
+        drives.find(item => item.id === id);
+
+    if (!drive) return;
+
+    selectedDrive = drive;
+
+    document.getElementById("modalCompany").innerText =
+        drive.company;
+
+    document.getElementById("modalRole").innerText =
+        drive.role;
+
+    document.getElementById("modalCourse").innerText =
+        drive.course;
+
+    document.getElementById("modalLocation").innerText =
+        drive.location;
+
+    document.getElementById("modalType").innerText =
+        drive.type;
+
+    document.getElementById("modalPackage").innerText =
+        drive.package;
+
+    document.getElementById("modalEligibility").innerText =
+        drive.eligibility;
+
+    document.getElementById("modalDescription").innerText =
+        drive.description;
+
+    const skillsList =
+        document.getElementById("modalSkills");
+
+    skillsList.innerHTML = "";
+
+    drive.skills.forEach(skill => {
+
+        const li = document.createElement("li");
+
+        li.innerText = skill;
+
+        skillsList.appendChild(li);
+
+    });
+
+    const selectionList =
+        document.getElementById("modalSelection");
+
+    selectionList.innerHTML = "";
+
+    drive.selection.forEach(step => {
+
+        const li = document.createElement("li");
+
+        li.innerText = step;
+
+        selectionList.appendChild(li);
+
+    });
+
+    document.getElementById("detailsModal")
+        .style.display = "flex";
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+function closeModal() {
+
+    document.getElementById("detailsModal")
+        .style.display = "none";
+}
+
+
+/* =========================================================
+   APPLY DRIVE
+========================================================= */
+
+function applyDrive(id) {
+
+    const drive =
+        drives.find(item => item.id === id);
+
+    if (!drive) return;
+
+    selectedDrive = drive;
+
+    /*
+        This matches the existing apply.html flow.
+        The selected drive is stored in localStorage.
+    */
+
+    localStorage.setItem(
+        "selectedDrive",
+        JSON.stringify(drive)
+    );
+
+    window.location.href = "apply.html";
+}
+
+
+/* =========================================================
+   APPLY FROM MODAL
+========================================================= */
+
+function applyFromModal() {
+
+    if (!selectedDrive) return;
+
+    localStorage.setItem(
+        "selectedDrive",
+        JSON.stringify(selectedDrive)
+    );
+
+    window.location.href = "apply.html";
+}
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================================= */
+
+window.addEventListener("click", function(event) {
+
+    const modal =
+        document.getElementById("detailsModal");
+
+    if (event.target === modal) {
+        closeModal();
+    }
+
+});
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    displayDrives(drives);
+
+    document.getElementById("totalDrives")
+        .innerText = drives.length;
+
+});
+
+
+</script>
+
+</body>
+</html>

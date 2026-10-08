@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applications | Placement Officer</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Algerian&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Times New Roman",serif;
+    background:linear-gradient(135deg,#eef4ff,#f8f5ff,#edfaff);
+    color:#18233b;
+    min-height:100vh;
+}
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.35;
+    z-index:-1;
+    animation:float 8s infinite alternate;
+}
+
+body::before{
+    background:#8b9cff;
+    top:-100px;
+    left:-80px;
+}
+
+body::after{
+    background:#69d9ff;
+    bottom:-100px;
+    right:-80px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    from{transform:translate(0,0)}
+    to{transform:translate(40px,30px)}
+}
+
+nav{
+    height:75px;
+    padding:0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.7);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-family:Algerian,serif;
+    font-size:24px;
+    color:#243b80;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.badge{
+    padding:10px 18px;
+    border-radius:25px;
+    background:#e9edff;
+    color:#243b80;
+    font-weight:bold;
+}
+
+.back-btn{
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:25px;
+    background:#243b80;
+    color:white;
+    transition:.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-3px);
+}
+
+.container{
+    width:90%;
+    max-width:1250px;
+    margin:35px auto;
+}
+
+.hero{
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(15px);
+    border-radius:28px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(36,59,128,.12);
+    animation:slideDown .8s ease;
+}
+
+@keyframes slideDown{
+    from{opacity:0;transform:translateY(-35px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.hero h1{
+    font-family:Algerian,serif;
+    font-weight:bold;
+    text-transform:uppercase;
+    font-size:38px;
+    color:#243b80;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:18px;
+    margin:25px 0;
+}
+
+.stat{
+    background:rgba(255,255,255,.8);
+    border-radius:20px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    animation:cardIn .7s ease both;
+}
+
+.stat:nth-child(2){animation-delay:.1s}
+.stat:nth-child(3){animation-delay:.2s}
+.stat:nth-child(4){animation-delay:.3s}
+.stat:nth-child(5){animation-delay:.4s}
+
+@keyframes cardIn{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.stat h2{
+    color:#243b80;
+    font-size:30px;
+}
+
+.stat p{
+    margin-top:5px;
+    font-weight:bold;
+}
+
+.toolbar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+}
+
+.toolbar input,
+.toolbar select{
+    padding:14px 17px;
+    border:none;
+    border-radius:14px;
+    background:white;
+    box-shadow:0 5px 18px rgba(0,0,0,.07);
+    font-family:"Times New Roman",serif;
+    font-size:16px;
+    outline:none;
+}
+
+.toolbar input{
+    flex:1;
+    min-width:230px;
+}
+
+.application-card{
+    background:rgba(255,255,255,.82);
+    border-radius:24px;
+    padding:25px;
+    margin-bottom:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    animation:fadeUp .7s ease both;
+    transition:.3s;
+}
+
+.application-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(36,59,128,.14);
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(25px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.app-top{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:flex-start;
+}
+
+.student-name{
+    font-size:24px;
+    font-weight:bold;
+    color:#243b80;
+}
+
+.company{
+    font-size:18px;
+    margin-top:5px;
+}
+
+.details{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:18px 0;
+}
+
+.detail{
+    background:#f0f3ff;
+    padding:8px 13px;
+    border-radius:12px;
+}
+
+.status{
+    padding:8px 15px;
+    border-radius:20px;
+    font-weight:bold;
+    display:inline-block;
+}
+
+.pending{background:#fff1c7;color:#9b7000}
+.shortlisted{background:#dff7e8;color:#14733c}
+.interview{background:#e4e9ff;color:#3048a5}
+.selected{background:#d7f8df;color:#08752f}
+.rejected{background:#ffe0e0;color:#b32626}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    padding:11px 17px;
+    border-radius:12px;
+    font-family:"Times New Roman",serif;
+    font-size:15px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.view-btn{background:#243b80;color:white}
+.shortlist-btn{background:#dff7e8;color:#14733c}
+.interview-btn{background:#e4e9ff;color:#3048a5}
+.evaluate-btn{background:#f1e4ff;color:#7435a8}
+.reject-btn{background:#ffe0e0;color:#b32626}
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    background:rgba(255,255,255,.8);
+    border-radius:25px;
+}
+
+.empty h2{
+    font-family:Algerian,serif;
+    color:#243b80;
+    margin-bottom:10px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(10,20,50,.55);
+    backdrop-filter:blur(7px);
+    z-index:500;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:700px;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:28px;
+    padding:30px;
+    animation:modalIn .35s ease;
+}
+
+@keyframes modalIn{
+    from{opacity:0;transform:scale(.9)}
+    to{opacity:1;transform:scale(1)}
+}
+
+.modal-box h2{
+    font-family:Algerian,serif;
+    color:#243b80;
+    text-transform:uppercase;
+    margin-bottom:20px;
+}
+
+.close{
+    float:right;
+    background:#ffe3e3;
+    color:#b32626;
+    border-radius:50%;
+    width:38px;
+    height:38px;
+    padding:0;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.info{
+    background:#f4f6ff;
+    padding:13px;
+    border-radius:12px;
+}
+
+.info strong{
+    display:block;
+    color:#243b80;
+    margin-bottom:4px;
+}
+
+.evaluation{
+    margin-top:25px;
+    background:#f7f8ff;
+    border-radius:20px;
+    padding:22px;
+}
+
+.evaluation h3{
+    text-transform:uppercase;
+    color:#243b80;
+    margin-bottom:15px;
+}
+
+.score-row{
+    margin-bottom:16px;
+}
+
+.score-label{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.score-row input{
+    width:100%;
+    padding:12px;
+    border:2px solid #dce2ff;
+    border-radius:12px;
+    font-family:"Times New Roman",serif;
+    font-size:16px;
+    outline:none;
+}
+
+.score-total{
+    margin-top:20px;
+    padding:17px;
+    border-radius:15px;
+    background:#243b80;
+    color:white;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+textarea{
+    width:100%;
+    padding:13px;
+    border:2px solid #dce2ff;
+    border-radius:12px;
+    resize:vertical;
+    font-family:"Times New Roman",serif;
+    font-size:16px;
+    margin-top:8px;
+    outline:none;
+}
+
+.decision{
+    margin-top:20px;
+}
+
+.decision select{
+    width:100%;
+    padding:13px;
+    border:2px solid #dce2ff;
+    border-radius:12px;
+    font-family:"Times New Roman",serif;
+    font-size:16px;
+}
+
+.save-btn{
+    width:100%;
+    margin-top:20px;
+    background:#243b80;
+    color:white;
+    padding:14px;
+}
+
+@media(max-width:900px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    nav{
+        padding:0 4%;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .badge{
+        display:none;
+    }
+
+    .hero h1{
+        font-size:27px;
+    }
+
+    .hero{
+        padding:25px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .app-top{
+        flex-direction:column;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">PLACEMENT PORTAL</div>
+
+    <div class="nav-right">
+        <span class="badge">OFFICER PANEL</span>
+        <a href="placement.html" class="back-btn">DASHBOARD</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <section class="hero">
+        <h1>STUDENT APPLICATIONS</h1>
+        <p>Review applications, shortlist candidates, conduct interviews and record final evaluation.</p>
+    </section>
+
+    <div class="stats">
+        <div class="stat">
+            <h2 id="total">0</h2>
+            <p>TOTAL</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="pending">0</h2>
+            <p>PENDING</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="shortlisted">0</h2>
+            <p>SHORTLISTED</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="interview">0</h2>
+            <p>INTERVIEW</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="selected">0</h2>
+            <p>SELECTED</p>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <input type="text" id="search" placeholder="SEARCH STUDENT, COMPANY OR ROLE">
+
+        <select id="statusFilter">
+            <option value="All">ALL STATUS</option>
+            <option value="Pending">PENDING</option>
+            <option value="Shortlisted">SHORTLISTED</option>
+            <option value="Interview">INTERVIEW</option>
+            <option value="Selected">SELECTED</option>
+            <option value="Rejected">REJECTED</option>
+        </select>
+
+        <select id="courseFilter">
+            <option value="All">ALL COURSES</option>
+        </select>
+    </div>
+
+    <div id="applicationsList"></div>
+
+</div>
+
+<!-- VIEW MODAL -->
+
+<div class="modal" id="viewModal">
+    <div class="modal-box">
+        <button class="close" onclick="closeModal('viewModal')">×</button>
+
+        <h2>APPLICATION DETAILS</h2>
+
+        <div id="viewContent"></div>
+    </div>
+</div>
+
+<!-- EVALUATION MODAL -->
+
+<div class="modal" id="evaluationModal">
+    <div class="modal-box">
+
+        <button class="close" onclick="closeModal('evaluationModal')">×</button>
+
+        <h2>INTERVIEW EVALUATION</h2>
+
+        <div id="evaluationCandidate"></div>
+
+        <div class="evaluation">
+
+            <h3>ASSESSMENT SCORE</h3>
+
+            <div class="score-row">
+                <div class="score-label">
+                    <span>RESUME / PROFILE</span>
+                    <span>MAX 20</span>
+                </div>
+                <input type="number" id="resumeScore" min="0" max="20" value="0" oninput="calculateTotal()">
+            </div>
+
+            <div class="score-row">
+                <div class="score-label">
+                    <span>STUDENT KNOWLEDGE</span>
+                    <span>MAX 20</span>
+                </div>
+                <input type="number" id="knowledgeScore" min="0" max="20" value="0" oninput="calculateTotal()">
+            </div>
+
+            <div class="score-row">
+                <div class="score-label">
+                    <span>TECHNICAL KNOWLEDGE</span>
+                    <span>MAX 20</span>
+                </div>
+                <input type="number" id="technicalScore" min="0" max="20" value="0" oninput="calculateTotal()">
+            </div>
+
+            <div class="score-row">
+                <div class="score-label">
+                    <span>COMMUNICATION SKILLS</span>
+                    <span>MAX 20</span>
+                </div>
+                <input type="number" id="communicationScore" min="0" max="20" value="0" oninput="calculateTotal()">
+            </div>
+
+            <div class="score-row">
+                <div class="score-label">
+                    <span>INTERVIEW PERFORMANCE & CONFIDENCE</span>
+                    <span>MAX 20</span>
+                </div>
+                <input type="number" id="performanceScore" min="0" max="20" value="0" oninput="calculateTotal()">
+            </div>
+
+            <div class="score-total">
+                TOTAL SCORE: <span id="totalScore">0</span> / 100
+            </div>
+
+            <div style="margin-top:20px;">
+                <strong>INTERVIEWER REMARK</strong>
+                <textarea id="interviewRemark" rows="4"
+                    placeholder="ENTER INTERVIEWER REMARK"></textarea>
+            </div>
+
+            <div class="decision">
+                <strong>FINAL DECISION</strong>
+
+                <select id="finalDecision" onchange="toggleReason()">
+                    <option value="Selected">SELECTED</option>
+                    <option value="Rejected">REJECTED</option>
+                </select>
+            </div>
+
+            <div id="rejectionBox" style="display:none;margin-top:18px;">
+                <strong>REJECTION REASON</strong>
+
+                <textarea id="rejectionReason" rows="4"
+                    placeholder="ENTER REASON FOR REJECTION"></textarea>
+            </div>
+
+            <button class="save-btn" onclick="saveEvaluation()">
+                SAVE FINAL EVALUATION
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+let applications = JSON.parse(localStorage.getItem("applications") || "[]");
+let currentApplicationId = null;
+
+function getApplications(){
+    return JSON.parse(localStorage.getItem("applications") || "[]");
+}
+
+function saveApplications(data){
+    localStorage.setItem("applications", JSON.stringify(data));
+}
+
+function updateStats(){
+
+    applications = getApplications();
+
+    document.getElementById("total").textContent = applications.length;
+
+    document.getElementById("pending").textContent =
+        applications.filter(a => a.status === "Pending").length;
+
+    document.getElementById("shortlisted").textContent =
+        applications.filter(a => a.status === "Shortlisted").length;
+
+    document.getElementById("interview").textContent =
+        applications.filter(a => a.status === "Interview").length;
+
+    document.getElementById("selected").textContent =
+        applications.filter(a => a.status === "Selected").length;
+}
+
+function loadCourses(){
+
+    const select = document.getElementById("courseFilter");
+
+    const courses = [...new Set(
+        applications.map(a => a.course).filter(Boolean)
+    )];
+
+    courses.forEach(course => {
+
+        const option = document.createElement("option");
+
+        option.value = course;
+        option.textContent = course.toUpperCase();
+
+        select.appendChild(option);
+    });
+}
+
+function renderApplications(){
+
+    applications = getApplications();
+
+    const search =
+        document.getElementById("search").value.toLowerCase();
+
+    const status =
+        document.getElementById("statusFilter").value;
+
+    const course =
+        document.getElementById("courseFilter").value;
+
+    const list =
+        document.getElementById("applicationsList");
+
+    let filtered = applications.filter(app => {
+
+        const text =
+            `${app.studentName || ""} ${app.company || ""} ${app.role || ""}`
+            .toLowerCase();
+
+        const matchSearch = text.includes(search);
+
+        const matchStatus =
+            status === "All" || app.status === status;
+
+        const matchCourse =
+            course === "All" || app.course === course;
+
+        return matchSearch && matchStatus && matchCourse;
+    });
+
+    if(filtered.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                <h2>NO APPLICATIONS FOUND</h2>
+                <p>No application matches your current search or filter.</p>
+            </div>
+        `;
+
+        updateStats();
+        return;
+    }
+
+    list.innerHTML = filtered.map((app,index) => {
+
+        const statusClass =
+            (app.status || "Pending").toLowerCase();
+
+        return `
+            <div class="application-card" style="animation-delay:${index*0.05}s">
+
+                <div class="app-top">
+
+                    <div>
+                        <div class="student-name">
+                            ${app.studentName || "STUDENT"}
+                        </div>
+
+                        <div class="company">
+                            ${app.role || "PLACEMENT ROLE"}
+                            — ${app.company || "COMPANY"}
+                        </div>
+                    </div>
+
+                    <span class="status ${statusClass}">
+                        ${(app.status || "Pending").toUpperCase()}
+                    </span>
+
+                </div>
+
+                <div class="details">
+
+                    <span class="detail">
+                        <b>ID:</b> ${app.studentId || "N/A"}
+                    </span>
+
+                    <span class="detail">
+                        <b>COURSE:</b> ${app.course || "N/A"}
+                    </span>
+
+                    <span class="detail">
+                        <b>CGPA:</b> ${app.cgpa || "N/A"}
+                    </span>
+
+                    <span class="detail">
+                        <b>PACKAGE:</b> ${app.package || "N/A"}
+                    </span>
+
+                    <span class="detail">
+                        <b>LOCATION:</b> ${app.location || "N/A"}
+                    </span>
+
+                </div>
+
+                <div class="actions">
+
+                    <button class="view-btn"
+                        onclick="viewApplication('${app.id}')">
+                        VIEW
+                    </button>
+
+                    ${
+                        app.status === "Pending"
+                        ?
+                        `<button class="shortlist-btn"
+                            onclick="changeStatus('${app.id}','Shortlisted')">
+                            SHORTLIST
+                        </button>`
+                        : ""
+                    }
+
+                    ${
+                        app.status === "Shortlisted"
+                        ?
+                        `<button class="interview-btn"
+                            onclick="changeStatus('${app.id}','Interview')">
+                            MOVE TO INTERVIEW
+                        </button>`
+                        : ""
+                    }
+
+                    ${
+                        app.status === "Interview"
+                        ?
+                        `<button class="evaluate-btn"
+                            onclick="openEvaluation('${app.id}')">
+                            INTERVIEW EVALUATION
+                        </button>`
+                        : ""
+                    }
+
+                    ${
+                        app.status === "Interview"
+                        ?
+                        `<button class="reject-btn"
+                            onclick="quickReject('${app.id}')">
+                            REJECT
+                        </button>`
+                        : ""
+                    }
+
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+
+    updateStats();
+}
+
+function viewApplication(id){
+
+    const app =
+        getApplications().find(a => String(a.id) === String(id));
+
+    if(!app) return;
+
+    document.getElementById("viewContent").innerHTML = `
+
+        <div class="info-grid">
+
+            <div class="info">
+                <strong>STUDENT NAME</strong>
+                ${app.studentName || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>STUDENT ID</strong>
+                ${app.studentId || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>EMAIL</strong>
+                ${app.email || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>MOBILE</strong>
+                ${app.mobile || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>COURSE</strong>
+                ${app.course || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>SEMESTER</strong>
+                ${app.semester || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>CGPA</strong>
+                ${app.cgpa || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>SKILLS</strong>
+                ${app.skills || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>COMPANY</strong>
+                ${app.company || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>ROLE</strong>
+                ${app.role || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>PACKAGE</strong>
+                ${app.package || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>LOCATION</strong>
+                ${app.location || "N/A"}
+            </div>
+
+        </div>
+
+        ${
+            app.evaluation
+            ?
+            `
+            <div class="evaluation">
+
+                <h3>FINAL EVALUATION</h3>
+
+                <div class="info">
+                    <strong>RESUME / PROFILE</strong>
+                    ${app.evaluation.resumeScore} / 20
+                </div>
+
+                <br>
+
+                <div class="info">
+                    <strong>STUDENT KNOWLEDGE</strong>
+                    ${app.evaluation.knowledgeScore} / 20
+                </div>
+
+                <br>
+
+                <div class="info">
+                    <strong>TECHNICAL KNOWLEDGE</strong>
+                    ${app.evaluation.technicalScore} / 20
+                </div>
+
+                <br>
+
+                <div class="info">
+                    <strong>COMMUNICATION SKILLS</strong>
+                    ${app.evaluation.communicationScore} / 20
+                </div>
+
+                <br>
+
+                <div class="info">
+                    <strong>INTERVIEW PERFORMANCE & CONFIDENCE</strong>
+                    ${app.evaluation.performanceScore} / 20
+                </div>
+
+                <div class="score-total">
+                    TOTAL: ${app.evaluation.total} / 100
+                </div>
+
+                <br>
+
+                <div class="info">
+                    <strong>DECISION</strong>
+                    ${app.status.toUpperCase()}
+                </div>
+
+                <br>
+
+                <div class="info">
+                    <strong>INTERVIEWER REMARK</strong>
+                    ${app.evaluation.remark || "N/A"}
+                </div>
+
+                ${
+                    app.status === "Rejected"
+                    ?
+                    `
+                    <br>
+                    <div class="info">
+                        <strong>REJECTION REASON</strong>
+                        ${app.evaluation.rejectionReason || "N/A"}
+                    </div>
+                    `
+                    : ""
+                }
+
+            </div>
+            `
+            : ""
+        }
+    `;
+
+    document.getElementById("viewModal").style.display = "flex";
+}
+
+function openEvaluation(id){
+
+    const app =
+        getApplications().find(a => String(a.id) === String(id));
+
+    if(!app) return;
+
+    currentApplicationId = id;
+
+    document.getElementById("evaluationCandidate").innerHTML = `
+        <div class="info-grid">
+
+            <div class="info">
+                <strong>STUDENT</strong>
+                ${app.studentName || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>ROLE</strong>
+                ${app.role || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>COMPANY</strong>
+                ${app.company || "N/A"}
+            </div>
+
+            <div class="info">
+                <strong>COURSE</strong>
+                ${app.course || "N/A"}
+            </div>
+
+        </div>
+    `;
+
+    const evaluation = app.evaluation || {};
+
+    document.getElementById("resumeScore").value =
+        evaluation.resumeScore || 0;
+
+    document.getElementById("knowledgeScore").value =
+        evaluation.knowledgeScore || 0;
+
+    document.getElementById("technicalScore").value =
+        evaluation.technicalScore || 0;
+
+    document.getElementById("communicationScore").value =
+        evaluation.communicationScore || 0;
+
+    document.getElementById("performanceScore").value =
+        evaluation.performanceScore || 0;
+
+    document.getElementById("interviewRemark").value =
+        evaluation.remark || "";
+
+    document.getElementById("finalDecision").value =
+        app.status === "Rejected" ? "Rejected" : "Selected";
+
+    document.getElementById("rejectionReason").value =
+        evaluation.rejectionReason || "";
+
+    toggleReason();
+    calculateTotal();
+
+    document.getElementById("evaluationModal").style.display = "flex";
+}
+
+function calculateTotal(){
+
+    const scores = [
+        Number(document.getElementById("resumeScore").value) || 0,
+        Number(document.getElementById("knowledgeScore").value) || 0,
+        Number(document.getElementById("technicalScore").value) || 0,
+        Number(document.getElementById("communicationScore").value) || 0,
+        Number(document.getElementById("performanceScore").value) || 0
+    ];
+
+    const safeScores = scores.map(score =>
+        Math.min(Math.max(score,0),20)
+    );
+
+    document.getElementById("resumeScore").value = safeScores[0];
+    document.getElementById("knowledgeScore").value = safeScores[1];
+    document.getElementById("technicalScore").value = safeScores[2];
+    document.getElementById("communicationScore").value = safeScores[3];
+    document.getElementById("performanceScore").value = safeScores[4];
+
+    const total =
+        safeScores.reduce((sum,score) => sum + score,0);
+
+    document.getElementById("totalScore").textContent = total;
+}
+
+function toggleReason(){
+
+    const decision =
+        document.getElementById("finalDecision").value;
+
+    document.getElementById("rejectionBox").style.display =
+        decision === "Rejected" ? "block" : "none";
+}
+
+function saveEvaluation(){
+
+    if(!currentApplicationId) return;
+
+    const resume =
+        Math.min(Math.max(Number(document.getElementById("resumeScore").value) || 0,0),20);
+
+    const knowledge =
+        Math.min(Math.max(Number(document.getElementById("knowledgeScore").value) || 0,0),20);
+
+    const technical =
+        Math.min(Math.max(Number(document.getElementById("technicalScore").value) || 0,0),20);
+
+    const communication =
+        Math.min(Math.max(Number(document.getElementById("communicationScore").value) || 0,0),20);
+
+    const performance =
+        Math.min(Math.max(Number(document.getElementById("performanceScore").value) || 0,0),20);
+
+    const total =
+        resume + knowledge + technical + communication + performance;
+
+    const decision =
+        document.getElementById("finalDecision").value;
+
+    const remark =
+        document.getElementById("interviewRemark").value.trim();
+
+    const rejectionReason =
+        document.getElementById("rejectionReason").value.trim();
+
+    if(decision === "Rejected" && !rejectionReason){
+
+        alert("PLEASE ENTER THE REJECTION REASON.");
+        return;
+    }
+
+    let data = getApplications();
+
+    const index =
+        data.findIndex(a =>
+            String(a.id) === String(currentApplicationId)
+        );
+
+    if(index === -1) return;
+
+    const app = data[index];
+
+    app.status = decision;
+
+    app.evaluation = {
+
+        resumeScore: resume,
+
+        knowledgeScore: knowledge,
+
+        technicalScore: technical,
+
+        communicationScore: communication,
+
+        performanceScore: performance,
+
+        total: total,
+
+        remark: remark,
+
+        rejectionReason:
+            decision === "Rejected"
+            ? rejectionReason
+            : "",
+
+        evaluatedAt:
+            new Date().toLocaleString()
+    };
+
+    app.evaluationScore = total;
+    app.interviewRemark = remark;
+    app.rejectionReason =
+        decision === "Rejected"
+        ? rejectionReason
+        : "";
+
+    data[index] = app;
+
+    saveApplications(data);
+
+    createStudentNotification(app,decision,total,rejectionReason);
+
+    closeModal("evaluationModal");
+
+    renderApplications();
+
+    alert(
+        decision === "Selected"
+        ? "CANDIDATE SELECTED AND EVALUATION SAVED."
+        : "CANDIDATE REJECTED AND EVALUATION SAVED."
+    );
+}
+
+function createStudentNotification(
+    app,
+    decision,
+    total,
+    rejectionReason
+){
+
+    let notifications =
+        JSON.parse(
+            localStorage.getItem("studentNotifications") || "[]"
+        );
+
+    const message =
+        decision === "Selected"
+        ?
+        `Congratulations! You have been selected for ${app.role || "the placement role"}. Your interview evaluation score is ${total}/100.`
+        :
+        `Your application for ${app.role || "the placement role"} has been rejected. Evaluation score: ${total}/100. Reason: ${rejectionReason}`;
+
+    notifications.push({
+
+        id:"SN"+Date.now(),
+
+        studentId:app.studentId,
+
+        title:
+            decision === "Selected"
+            ? "APPLICATION SELECTED"
+            : "APPLICATION REJECTED",
+
+        message:message,
+
+        applicationId:app.id,
+
+        status:decision,
+
+        score:total,
+
+        rejectionReason:
+            decision === "Rejected"
+            ? rejectionReason
+            : "",
+
+        createdAt:
+            new Date().toLocaleString(),
+
+        read:false
+    });
+
+    localStorage.setItem(
+        "studentNotifications",
+        JSON.stringify(notifications)
+    );
+}
+
+function changeStatus(id,newStatus){
+
+    let data = getApplications();
+
+    const index =
+        data.findIndex(a =>
+            String(a.id) === String(id)
+        );
+
+    if(index === -1) return;
+
+    data[index].status = newStatus;
+
+    saveApplications(data);
+
+    createStatusNotification(data[index],newStatus);
+
+    renderApplications();
+
+    alert("APPLICATION STATUS UPDATED.");
+}
+
+function createStatusNotification(app,status){
+
+    let notifications =
+        JSON.parse(
+            localStorage.getItem("studentNotifications") || "[]"
+        );
+
+    let title = "";
+    let message = "";
+
+    if(status === "Shortlisted"){
+
+        title = "APPLICATION SHORTLISTED";
+
+        message =
+            `Your application for ${app.role || "the placement role"} has been shortlisted.`;
+
+    }else if(status === "Interview"){
+
+        title = "INTERVIEW STAGE";
+
+        message =
+            `You have been moved to the interview stage for ${app.role || "the placement role"}.`;
+
+    }
+
+    if(!title) return;
+
+    notifications.push({
+
+        id:"SN"+Date.now(),
+
+        studentId:app.studentId,
+
+        title:title,
+
+        message:message,
+
+        applicationId:app.id,
+
+        status:status,
+
+        createdAt:new Date().toLocaleString(),
+
+        read:false
+    });
+
+    localStorage.setItem(
+        "studentNotifications",
+        JSON.stringify(notifications)
+    );
+}
+
+function quickReject(id){
+
+    const reason =
+        prompt("ENTER REJECTION REASON:");
+
+    if(!reason) return;
+
+    let data = getApplications();
+
+    const index =
+        data.findIndex(a =>
+            String(a.id) === String(id)
+        );
+
+    if(index === -1) return;
+
+    data[index].status = "Rejected";
+
+    data[index].rejectionReason = reason;
+
+    data[index].evaluation = {
+
+        resumeScore:0,
+
+        knowledgeScore:0,
+
+        technicalScore:0,
+
+        communicationScore:0,
+
+        performanceScore:0,
+
+        total:0,
+
+        remark:"",
+
+        rejectionReason:reason,
+
+        evaluatedAt:new Date().toLocaleString()
+    };
+
+    saveApplications(data);
+
+    createStudentNotification(
+        data[index],
+        "Rejected",
+        0,
+        reason
+    );
+
+    renderApplications();
+
+    alert("APPLICATION REJECTED.");
+}
+
+function closeModal(id){
+
+    document.getElementById(id).style.display = "none";
+}
+
+document.getElementById("search")
+.addEventListener("input",renderApplications);
+
+document.getElementById("statusFilter")
+.addEventListener("change",renderApplications);
+
+document.getElementById("courseFilter")
+.addEventListener("change",renderApplications);
+
+loadCourses();
+renderApplications();
+updateStats();
+
+</script>
+
+</body>
+</html>

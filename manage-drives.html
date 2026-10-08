@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Placement Drives</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f2f6ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .header-row h1 {
+            color: #123f91;
+            font-size: 36px;
+            margin: 0 0 8px;
+        }
+
+        .header-row p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .add-btn {
+            background: #16479b;
+            color: white;
+            border: none;
+            padding: 13px 20px;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #0f3577;
+        }
+
+        .tools {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .tools input,
+        .tools select {
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .drive-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+        }
+
+        .drive-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .company {
+            color: #123f91;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .role {
+            color: #334155;
+            font-size: 18px;
+            margin-top: 6px;
+        }
+
+        .type {
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            height: fit-content;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin: 20px 0;
+        }
+
+        .detail {
+            background: #f8fafc;
+            padding: 13px;
+            border-radius: 9px;
+        }
+
+        .detail small {
+            display: block;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .detail strong {
+            color: #26364d;
+        }
+
+        .eligibility {
+            background: #eef5ff;
+            padding: 13px;
+            border-radius: 9px;
+            margin-bottom: 18px;
+            color: #334155;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .view-btn {
+            background: #16479b;
+            color: white;
+        }
+
+        .empty {
+            background: white;
+            padding: 55px 20px;
+            border-radius: 15px;
+            text-align: center;
+            color: #64748b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .modal-box h2 {
+            color: #123f91;
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field label {
+            font-weight: bold;
+            color: #334155;
+            margin-bottom: 7px;
+        }
+
+        .field input,
+        .field select {
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .save-btn {
+            background: #16479b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 850px) {
+            .tools {
+                grid-template-columns: 1fr;
+            }
+
+            .details {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-row h1 {
+                font-size: 28px;
+            }
+
+            .details,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .drive-top {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">Placement Portal</div>
+
+    <nav>
+        <a href="placement.html">Dashboard</a>
+        <a href="manage-drives.html">Drives</a>
+        <a href="applications.html">Applications</a>
+        <button onclick="logoutOfficer()">Logout</button>
+    </nav>
+</header>
+
+
+<main class="page">
+
+    <div class="header-row">
+        <div>
+            <h1>Manage Placement Drives</h1>
+            <p>Create and manage company placement opportunities.</p>
+        </div>
+
+        <button class="add-btn" onclick="openAddModal()">
+            + Add Placement Drive
+        </button>
+    </div>
+
+
+    <div class="tools">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search company or job role..."
+            oninput="displayDrives()">
+
+        <select id="locationFilter" onchange="displayDrives()">
+            <option value="">All Locations</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Pune">Pune</option>
+            <option value="Noida">Noida</option>
+            <option value="Gurgaon">Gurgaon</option>
+            <option value="Delhi">Delhi</option>
+        </select>
+
+        <select id="typeFilter" onchange="displayDrives()">
+            <option value="">All Types</option>
+            <option value="Full Time">Full Time</option>
+            <option value="Internship">Internship</option>
+        </select>
+
+    </div>
+
+
+    <section id="drivesContainer"></section>
+
+</main>
+
+
+<div class="modal" id="driveModal">
+
+    <div class="modal-box">
+
+        <h2 id="modalTitle">Add Placement Drive</h2>
+
+        <form onsubmit="saveDrive(event)">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Company Name</label>
+                    <input type="text" id="company" required>
+                </div>
+
+                <div class="field">
+                    <label>Job Role</label>
+                    <input type="text" id="role" required>
+                </div>
+
+                <div class="field">
+                    <label>Package / Stipend</label>
+                    <input type="text" id="package" placeholder="Example: ₹6 LPA" required>
+                </div>
+
+                <div class="field">
+                    <label>Location</label>
+                    <input type="text" id="location" required>
+                </div>
+
+                <div class="field">
+                    <label>Drive Type</label>
+                    <select id="type" required>
+                        <option value="">Select Type</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Minimum CGPA</label>
+                    <input type="number" id="minCgpa" min="0" max="10" step="0.1" required>
+                </div>
+
+                <div class="field">
+                    <label>Eligible Course</label>
+                    <input type="text" id="course" placeholder="Example: BCA, B.Tech" required>
+                </div>
+
+                <div class="field">
+                    <label>Last Date</label>
+                    <input type="date" id="lastDate" required>
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button type="submit" class="save-btn">
+                    Save Drive
+                </button>
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeModal()">
+                    Cancel
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    if (localStorage.getItem("officerLoggedIn") !== "true") {
+        window.location.href = "officer-login.html";
+    }
+
+
+    let defaultDrives = [
+        {
+            id: "DRV1001",
+            company: "TCS",
+            role: "Software Developer",
+            package: "₹6 LPA",
+            location: "Bangalore",
+            type: "Full Time",
+            course: "BCA, B.Tech",
+            minCgpa: "6.0",
+            lastDate: "2026-10-15"
+        },
+        {
+            id: "DRV1002",
+            company: "Infosys",
+            role: "System Engineer",
+            package: "₹5.5 LPA",
+            location: "Hyderabad",
+            type: "Full Time",
+            course: "BCA, B.Tech",
+            minCgpa: "6.0",
+            lastDate: "2026-10-20"
+        },
+        {
+            id: "DRV1003",
+            company: "Wipro",
+            role: "Project Engineer",
+            package: "₹5 LPA",
+            location: "Pune",
+            type: "Full Time",
+            course: "BCA, B.Tech",
+            minCgpa: "5.5",
+            lastDate: "2026-10-25"
+        },
+        {
+            id: "DRV1004",
+            company: "Accenture",
+            role: "Associate Software Engineer",
+            package: "₹6.5 LPA",
+            location: "Noida",
+            type: "Full Time",
+            course: "BCA, B.Tech",
+            minCgpa: "6.0",
+            lastDate: "2026-11-01"
+        },
+        {
+            id: "DRV1005",
+            company: "Deloitte",
+            role: "Data Analyst Intern",
+            package: "₹25K/month",
+            location: "Gurgaon",
+            type: "Internship",
+            course: "BCA, B.Tech, MCA",
+            minCgpa: "6.0",
+            lastDate: "2026-10-30"
+        },
+        {
+            id: "DRV1006",
+            company: "HCLTech",
+            role: "Graduate Engineer Trainee",
+            package: "₹5.8 LPA",
+            location: "Noida",
+            type: "Full Time",
+            course: "BCA, B.Tech",
+            minCgpa: "5.5",
+            lastDate: "2026-11-10"
+        }
+    ];
+
+
+    let drives =
+        JSON.parse(localStorage.getItem("placementDrives"));
+
+
+    if (!drives) {
+
+        drives = defaultDrives;
+
+        localStorage.setItem(
+            "placementDrives",
+            JSON.stringify(drives)
+        );
+
+    }
+
+
+    let editingIndex = -1;
+
+
+    function displayDrives() {
+
+        const container =
+            document.getElementById("drivesContainer");
+
+        const search =
+            document.getElementById("search").value.toLowerCase();
+
+        const location =
+            document.getElementById("locationFilter").value;
+
+        const type =
+            document.getElementById("typeFilter").value;
+
+
+        const filtered =
+            drives.filter(function(drive) {
+
+                const matchesSearch =
+                    drive.company.toLowerCase().includes(search) ||
+                    drive.role.toLowerCase().includes(search);
+
+                const matchesLocation =
+                    !location ||
+                    drive.location === location;
+
+                const matchesType =
+                    !type ||
+                    drive.type === type;
+
+                return (
+                    matchesSearch &&
+                    matchesLocation &&
+                    matchesType
+                );
+
+            });
+
+
+        if (filtered.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty">
+                    <h2>No Placement Drives Found</h2>
+                    <p>Try changing your search or filters.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+            filtered.map(function(drive) {
+
+                const index =
+                    drives.indexOf(drive);
+
+                return `
+
+                    <div class="drive-card">
+
+                        <div class="drive-top">
+
+                            <div>
+                                <div class="company">
+                                    ${drive.company}
+                                </div>
+
+                                <div class="role">
+                                    ${drive.role}
+                                </div>
+                            </div>
+
+                            <div class="type">
+                                ${drive.type}
+                            </div>
+
+                        </div>
+
+
+                        <div class="details">
+
+                            <div class="detail">
+                                <small>Package</small>
+                                <strong>${drive.package}</strong>
+                            </div>
+
+                            <div class="detail">
+                                <small>Location</small>
+                                <strong>${drive.location}</strong>
+                            </div>
+
+                            <div class="detail">
+                                <small>Course</small>
+                                <strong>${drive.course}</strong>
+                            </div>
+
+                            <div class="detail">
+                                <small>Minimum CGPA</small>
+                                <strong>${drive.minCgpa}</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="eligibility">
+
+                            <strong>Eligibility:</strong>
+                            ${drive.course}
+                            with minimum CGPA
+                            ${drive.minCgpa}
+
+                            <br>
+
+                            <strong>Last Date:</strong>
+                            ${drive.lastDate}
+
+                        </div>
+
+
+                        <div class="actions">
+
+                            <button
+                                class="action-btn view-btn"
+                                onclick="viewDrive(${index})">
+                                View
+                            </button>
+
+                            <button
+                                class="action-btn edit-btn"
+                                onclick="editDrive(${index})">
+                                Edit
+                            </button>
+
+                            <button
+                                class="action-btn delete-btn"
+                                onclick="deleteDrive(${index})">
+                                Delete
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }).join("");
+
+    }
+
+
+    function openAddModal() {
+
+        editingIndex = -1;
+
+        document.getElementById("modalTitle").textContent =
+            "Add Placement Drive";
+
+        document.getElementById("company").value = "";
+        document.getElementById("role").value = "";
+        document.getElementById("package").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("type").value = "";
+        document.getElementById("minCgpa").value = "";
+        document.getElementById("course").value = "";
+        document.getElementById("lastDate").value = "";
+
+        document.getElementById("driveModal").style.display =
+            "flex";
+
+    }
+
+
+    function editDrive(index) {
+
+        const drive = drives[index];
+
+        editingIndex = index;
+
+        document.getElementById("modalTitle").textContent =
+            "Edit Placement Drive";
+
+        document.getElementById("company").value =
+            drive.company;
+
+        document.getElementById("role").value =
+            drive.role;
+
+        document.getElementById("package").value =
+            drive.package;
+
+        document.getElementById("location").value =
+            drive.location;
+
+        document.getElementById("type").value =
+            drive.type;
+
+        document.getElementById("minCgpa").value =
+            drive.minCgpa;
+
+        document.getElementById("course").value =
+            drive.course;
+
+        document.getElementById("lastDate").value =
+            drive.lastDate;
+
+        document.getElementById("driveModal").style.display =
+            "flex";
+
+    }
+
+
+    function saveDrive(event) {
+
+        event.preventDefault();
+
+
+        const driveData = {
+
+            id:
+                editingIndex === -1
+                    ? "DRV" + Date.now()
+                    : drives[editingIndex].id,
+
+            company:
+                document.getElementById("company").value.trim(),
+
+            role:
+                document.getElementById("role").value.trim(),
+
+            package:
+                document.getElementById("package").value.trim(),
+
+            location:
+                document.getElementById("location").value.trim(),
+
+            type:
+                document.getElementById("type").value,
+
+            minCgpa:
+                document.getElementById("minCgpa").value,
+
+            course:
+                document.getElementById("course").value.trim(),
+
+            lastDate:
+                document.getElementById("lastDate").value
+
+        };
+
+
+        if (editingIndex === -1) {
+
+            drives.push(driveData);
+
+        } else {
+
+            drives[editingIndex] = driveData;
+
+        }
+
+
+        localStorage.setItem(
+            "placementDrives",
+            JSON.stringify(drives)
+        );
+
+
+        closeModal();
+
+        displayDrives();
+
+        alert(
+            editingIndex === -1
+                ? "Placement drive added successfully."
+                : "Placement drive updated successfully."
+        );
+
+    }
+
+
+    function deleteDrive(index) {
+
+        const drive = drives[index];
+
+        if (!confirm(
+            "Are you sure you want to delete " +
+            drive.company +
+            " placement drive?"
+        )) {
+            return;
+        }
+
+
+        drives.splice(index, 1);
+
+
+        localStorage.setItem(
+            "placementDrives",
+            JSON.stringify(drives)
+        );
+
+
+        displayDrives();
+
+        alert("Placement drive deleted successfully.");
+
+    }
+
+
+    function viewDrive(index) {
+
+        const drive = drives[index];
+
+        alert(
+            "Company: " + drive.company +
+            "\nRole: " + drive.role +
+            "\nPackage: " + drive.package +
+            "\nLocation: " + drive.location +
+            "\nType: " + drive.type +
+            "\nCourse: " + drive.course +
+            "\nMinimum CGPA: " + drive.minCgpa +
+            "\nLast Date: " + drive.lastDate
+        );
+
+    }
+
+
+    function closeModal() {
+
+        document.getElementById("driveModal").style.display =
+            "none";
+
+    }
+
+
+    function logoutOfficer() {
+
+        localStorage.removeItem("officerLoggedIn");
+
+        localStorage.removeItem("officerId");
+
+        window.location.href = "index.html";
+
+    }
+
+
+    displayDrives();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply For Placement</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Times New Roman",serif;
+    background:#f4f7ff;
+    color:#172033;
+    overflow-x:hidden;
+}
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:330px;
+    height:330px;
+    border-radius:50%;
+    filter:blur(85px);
+    opacity:.28;
+    z-index:-1;
+}
+
+body::before{
+    background:#7c3aed;
+    top:-120px;
+    left:-100px;
+}
+
+body::after{
+    background:#06b6d4;
+    right:-120px;
+    bottom:-120px;
+}
+
+/* NAVBAR */
+
+nav{
+    height:75px;
+    padding:0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(255,255,255,.8);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.8);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-family:Algerian,serif;
+    font-weight:bold;
+    font-size:23px;
+    color:#35207c;
+    letter-spacing:1px;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.student-badge{
+    background:white;
+    padding:10px 17px;
+    border-radius:25px;
+    font-weight:bold;
+    box-shadow:0 7px 22px rgba(45,35,100,.1);
+}
+
+.back-btn{
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(135deg,#5b21b6,#0891b2);
+    padding:11px 20px;
+    border-radius:25px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.back-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(79,70,229,.3);
+}
+
+/* CONTAINER */
+
+.container{
+    width:92%;
+    max-width:1050px;
+    margin:42px auto;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    margin-bottom:30px;
+    animation:fromTop 1s ease;
+}
+
+.header h1{
+    font-family:Algerian,serif;
+    font-weight:bold;
+    font-size:40px;
+    color:#24135f;
+    letter-spacing:2px;
+}
+
+.header p{
+    margin-top:10px;
+    color:#647084;
+    font-size:18px;
+}
+
+/* SELECTED DRIVE */
+
+.drive-box{
+    background:linear-gradient(135deg,#321568,#087c91);
+    color:white;
+    border-radius:25px;
+    padding:27px;
+    margin-bottom:25px;
+    box-shadow:0 18px 45px rgba(44,24,100,.2);
+    animation:slideLeft .9s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.drive-box::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:30px solid rgba(255,255,255,.08);
+    right:-50px;
+    top:-70px;
+}
+
+.drive-label{
+    font-size:14px;
+    letter-spacing:2px;
+    opacity:.8;
+    font-weight:bold;
+}
+
+.drive-box h2{
+    font-family:Algerian,serif;
+    font-size:27px;
+    margin:8px 0;
+}
+
+.drive-info{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:15px;
+}
+
+.drive-tag{
+    background:rgba(255,255,255,.15);
+    padding:8px 13px;
+    border-radius:20px;
+}
+
+/* MAIN CARD */
+
+.form-card{
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(16px);
+    border-radius:27px;
+    padding:35px;
+    box-shadow:0 18px 50px rgba(35,25,90,.12);
+    animation:fadeUp 1s ease;
+}
+
+/* SECTIONS */
+
+.section{
+    margin-bottom:32px;
+    animation:sectionIn .8s ease both;
+}
+
+.section:nth-child(2){
+    animation-delay:.12s;
+}
+
+.section:nth-child(3){
+    animation-delay:.24s;
+}
+
+.section:nth-child(4){
+    animation-delay:.36s;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:Algerian,serif;
+    font-weight:bold;
+    font-size:21px;
+    color:#35207c;
+    margin-bottom:19px;
+}
+
+.section-title span{
+    width:9px;
+    height:27px;
+    border-radius:10px;
+    background:linear-gradient(#7c3aed,#06b6d4);
+}
+
+/* GRID */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:19px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    color:#3d4657;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:14px 15px;
+    border:2px solid #e2e6ef;
+    border-radius:14px;
+    background:#fbfcff;
+    font-family:"Times New Roman",serif;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#7255e8;
+    box-shadow:0 0 0 4px rgba(114,85,232,.09);
+    background:white;
+    transform:translateY(-2px);
+}
+
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+/* FULL */
+
+.full{
+    grid-column:1/-1;
+}
+
+/* RESUME */
+
+.resume-box{
+    border:2px dashed #bcb6e8;
+    border-radius:17px;
+    padding:20px;
+    background:#faf9ff;
+}
+
+.resume-box input{
+    width:100%;
+    margin-top:12px;
+    font-family:"Times New Roman",serif;
+}
+
+/* NOTE */
+
+.note{
+    padding:14px 17px;
+    background:#f0edff;
+    border-left:5px solid #7045dc;
+    border-radius:12px;
+    color:#514b69;
+    line-height:1.5;
+    margin-bottom:25px;
+}
+
+/* BUTTON */
+
+.submit-area{
+    text-align:center;
+    margin-top:10px;
+}
+
+.submit-btn{
+    border:none;
+    color:white;
+    background:linear-gradient(135deg,#5b21b6,#0891b2);
+    padding:15px 42px;
+    border-radius:30px;
+    font-family:"Times New Roman",serif;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 12px 30px rgba(79,70,229,.25);
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-4px) scale(1.02);
+    box-shadow:0 17px 35px rgba(79,70,229,.3);
+}
+
+.cancel-btn{
+    margin-left:10px;
+    padding:14px 30px;
+    border:none;
+    border-radius:30px;
+    background:#edf0f6;
+    color:#333b4d;
+    font-family:"Times New Roman",serif;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.cancel-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* SUCCESS */
+
+.success{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(18,20,40,.62);
+    backdrop-filter:blur(7px);
+    z-index:500;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.success-box{
+    width:100%;
+    max-width:480px;
+    background:white;
+    border-radius:27px;
+    padding:38px;
+    text-align:center;
+    animation:successIn .45s ease;
+    box-shadow:0 25px 70px rgba(0,0,0,.2);
+}
+
+.success-icon{
+    width:75px;
+    height:75px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#e5f9ed;
+    font-size:37px;
+}
+
+.success-box h2{
+    font-family:Algerian,serif;
+    color:#2e1b6e;
+    margin-bottom:10px;
+}
+
+.success-box p{
+    color:#657083;
+    line-height:1.6;
+}
+
+/* ANIMATIONS */
+
+@keyframes fromTop{
+    from{
+        opacity:0;
+        transform:translateY(-40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes slideLeft{
+    from{
+        opacity:0;
+        transform:translateX(-50px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(35px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes sectionIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes successIn{
+    from{
+        opacity:0;
+        transform:scale(.88) translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    nav{
+        padding:0 4%;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .student-badge{
+        display:none;
+    }
+
+    .container{
+        width:94%;
+        margin:30px auto;
+    }
+
+    .header h1{
+        font-size:29px;
+    }
+
+    .header p{
+        font-size:16px;
+    }
+
+    .drive-box{
+        padding:22px;
+    }
+
+    .drive-box h2{
+        font-size:23px;
+    }
+
+    .form-card{
+        padding:22px;
+        border-radius:22px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .submit-btn,
+    .cancel-btn{
+        width:100%;
+        margin:7px 0;
+    }
+
+    .back-btn{
+        padding:9px 13px;
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">PLACEMENT HUB</div>
+
+    <div class="nav-right">
+        <div class="student-badge" id="studentBadge">STUDENT</div>
+        <a href="drives.html" class="back-btn">← DRIVES</a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="header">
+        <h1>APPLY FOR PLACEMENT</h1>
+        <p>SUBMIT YOUR APPLICATION AND TAKE THE NEXT STEP TOWARDS YOUR CAREER</p>
+    </div>
+
+    <div class="drive-box" id="driveBox">
+        <div class="drive-label">SELECTED PLACEMENT DRIVE</div>
+        <h2 id="companyName">LOADING...</h2>
+
+        <div class="drive-info">
+            <div class="drive-tag" id="roleTag">ROLE</div>
+            <div class="drive-tag" id="packageTag">PACKAGE</div>
+            <div class="drive-tag" id="locationTag">LOCATION</div>
+            <div class="drive-tag" id="courseTag">COURSE</div>
+        </div>
+    </div>
+
+    <div class="form-card">
+
+        <form id="applicationForm">
+
+            <!-- PERSONAL -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    <span></span>
+                    PERSONAL INFORMATION
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>FULL NAME *</label>
+                        <input type="text" id="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>STUDENT ID *</label>
+                        <input type="text" id="studentId" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label>EMAIL *</label>
+                        <input type="email" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>MOBILE NUMBER *</label>
+                        <input type="tel" id="mobile" required>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ACADEMIC -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    <span></span>
+                    ACADEMIC INFORMATION
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>COURSE *</label>
+                        <input type="text" id="course" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>BRANCH / SPECIALIZATION</label>
+                        <input type="text" id="branch">
+                    </div>
+
+                    <div class="form-group">
+                        <label>SEMESTER *</label>
+                        <input type="text" id="semester" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CGPA *</label>
+                        <input type="number" id="cgpa" min="0" max="10" step="0.01" required>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>SKILLS *</label>
+                        <input type="text" id="skills" placeholder="Example: Python, Java, Excel, AI/ML" required>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RESUME -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    <span></span>
+                    RESUME
+                </div>
+
+                <div class="resume-box">
+
+                    <strong>CURRENT RESUME:</strong>
+                    <span id="currentResume">NO RESUME UPLOADED</span>
+
+                    <input
+                        type="file"
+                        id="resume"
+                        accept=".pdf,.doc,.docx"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- MESSAGE -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    <span></span>
+                    APPLICATION MESSAGE
+                </div>
+
+                <div class="note">
+                    WRITE A SHORT PROFESSIONAL MESSAGE ABOUT YOUR INTEREST IN THIS PLACEMENT OPPORTUNITY.
+                </div>
+
+                <div class="form-group">
+                    <textarea
+                        id="message"
+                        placeholder="Enter your message..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <div class="submit-area">
+
+                <button type="submit" class="submit-btn">
+                    SUBMIT APPLICATION
+                </button>
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="window.location.href='drives.html'"
+                >
+                    CANCEL
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- SUCCESS -->
+
+<div class="success" id="successModal">
+
+    <div class="success-box">
+
+        <div class="success-icon">✓</div>
+
+        <h2>APPLICATION SUBMITTED</h2>
+
+        <p>
+            YOUR APPLICATION HAS BEEN SUBMITTED SUCCESSFULLY.
+            YOU CAN TRACK YOUR APPLICATION STATUS FROM YOUR DASHBOARD.
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+/* SAFE JSON */
+
+function safeParse(key,fallback){
+
+    try{
+
+        const value =
+            localStorage.getItem(key);
+
+        return value ?
+            JSON.parse(value) :
+            fallback;
+
+    }catch(error){
+
+        return fallback;
+    }
+}
+
+
+/* STUDENT ID */
+
+const studentId =
+    localStorage.getItem("studentId") ||
+    "STU1001";
+
+document.getElementById("studentBadge")
+    .textContent = studentId;
+
+document.getElementById("studentId")
+    .value = studentId;
+
+
+/* STUDENT DATA */
+
+let studentData =
+    safeParse("studentData",{});
+
+if(!studentData ||
+   typeof studentData !== "object"){
+
+    studentData = {};
+}
+
+
+/* SELECTED DRIVE */
+
+let selectedDrive =
+    safeParse("selectedDrive",null);
+
+if(!selectedDrive ||
+   typeof selectedDrive !== "object"){
+
+    selectedDrive = {
+
+        id:"D001",
+        company:"TCS",
+        companyId:"COM1001",
+        role:"Software Developer",
+        package:"6 LPA",
+        location:"Bangalore",
+        type:"Full Time",
+        course:"BCA",
+        cgpa:6,
+        lastDate:"30 Sep 2026",
+        description:
+        "Software development opportunity."
+    };
+}
+
+
+/* DISPLAY DRIVE */
+
+document.getElementById("companyName")
+    .textContent =
+    selectedDrive.company || "COMPANY";
+
+document.getElementById("roleTag")
+    .textContent =
+    selectedDrive.role || "ROLE";
+
+document.getElementById("packageTag")
+    .textContent =
+    selectedDrive.package || "PACKAGE";
+
+document.getElementById("locationTag")
+    .textContent =
+    "📍 " + (selectedDrive.location || "-");
+
+document.getElementById("courseTag")
+    .textContent =
+    selectedDrive.course || "COURSE";
+
+
+/* PREFILL */
+
+document.getElementById("name")
+    .value = studentData.name || "";
+
+document.getElementById("email")
+    .value = studentData.email || "";
+
+document.getElementById("mobile")
+    .value = studentData.mobile || "";
+
+document.getElementById("course")
+    .value =
+    studentData.course ||
+    selectedDrive.course ||
+    "";
+
+document.getElementById("branch")
+    .value =
+    studentData.branch || "";
+
+document.getElementById("semester")
+    .value =
+    studentData.semester || "";
+
+document.getElementById("cgpa")
+    .value =
+    studentData.cgpa || "";
+
+document.getElementById("skills")
+    .value =
+    studentData.skills || "";
+
+document.getElementById("currentResume")
+    .textContent =
+    studentData.resumeName ||
+    "NO RESUME UPLOADED";
+
+
+/* FORM SUBMIT */
+
+document.getElementById("applicationForm")
+.addEventListener("submit",function(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name")
+        .value.trim();
+
+    const email =
+        document.getElementById("email")
+        .value.trim();
+
+    const mobile =
+        document.getElementById("mobile")
+        .value.trim();
+
+    const course =
+        document.getElementById("course")
+        .value.trim();
+
+    const branch =
+        document.getElementById("branch")
+        .value.trim();
+
+    const semester =
+        document.getElementById("semester")
+        .value.trim();
+
+    const cgpa =
+        Number(
+            document.getElementById("cgpa")
+            .value
+        );
+
+    const skills =
+        document.getElementById("skills")
+        .value.trim();
+
+    const message =
+        document.getElementById("message")
+        .value.trim();
+
+    if(!name ||
+       !email ||
+       !mobile ||
+       !course ||
+       !semester ||
+       !skills){
+
+        alert(
+            "PLEASE FILL ALL REQUIRED FIELDS."
+        );
+
+        return;
+    }
+
+    if(cgpa < 0 || cgpa > 10){
+
+        alert(
+            "CGPA MUST BE BETWEEN 0 AND 10."
+        );
+
+        return;
+    }
+
+
+    /* CHECK ELIGIBILITY */
+
+    const minimumCgpa =
+        Number(
+            selectedDrive.cgpa ||
+            selectedDrive.minimumCgpa ||
+            selectedDrive.minCgpa ||
+            0
+        );
+
+    if(
+        minimumCgpa &&
+        cgpa < minimumCgpa
+    ){
+
+        alert(
+            "YOU ARE NOT ELIGIBLE FOR THIS DRIVE BECAUSE YOUR CGPA IS BELOW THE MINIMUM REQUIRED CGPA."
+        );
+
+        return;
+    }
+
+
+    /* RESUME */
+
+    const resumeInput =
+        document.getElementById("resume");
+
+    let resumeName =
+        studentData.resumeName || "";
+
+    if(resumeInput.files.length){
+
+        resumeName =
+            resumeInput.files[0].name;
+    }
+
+
+    /* APPLICATIONS */
+
+    let applications =
+        safeParse("applications",[]);
+
+    if(!Array.isArray(applications)){
+        applications = [];
+    }
+
+
+    /* DUPLICATE CHECK */
+
+    const duplicate =
+        applications.some(app =>
+
+            String(app.studentId || "")
+            .toLowerCase()
+            ===
+            String(studentId)
+            .toLowerCase()
+
+            &&
+
+            String(app.company || "")
+            .toLowerCase()
+            ===
+            String(selectedDrive.company || "")
+            .toLowerCase()
+
+            &&
+
+            String(app.role || "")
+            .toLowerCase()
+            ===
+            String(selectedDrive.role || "")
+            .toLowerCase()
+        );
+
+
+    if(duplicate){
+
+        alert(
+            "YOU HAVE ALREADY APPLIED FOR THIS PLACEMENT DRIVE."
+        );
+
+        return;
+    }
+
+
+    /* APPLICATION OBJECT */
+
+    const application = {
+
+        id:
+            "APP" +
+            Date.now(),
+
+        studentId:
+            studentId,
+
+        studentName:
+            name,
+
+        email:
+            email,
+
+        mobile:
+            mobile,
+
+        course:
+            course,
+
+        branch:
+            branch,
+
+        semester:
+            semester,
+
+        cgpa:
+            cgpa,
+
+        skills:
+            skills,
+
+        resumeName:
+            resumeName,
+
+        company:
+            selectedDrive.company || "",
+
+        companyId:
+            selectedDrive.companyId ||
+            "COM1001",
+
+        role:
+            selectedDrive.role || "",
+
+        package:
+            selectedDrive.package || "",
+
+        location:
+            selectedDrive.location || "",
+
+        type:
+            selectedDrive.type || "Full Time",
+
+        message:
+            message,
+
+        status:
+            "Pending",
+
+        appliedOn:
+            new Date().toLocaleString()
+    };
+
+
+    applications.push(application);
+
+    localStorage.setItem(
+        "applications",
+        JSON.stringify(applications)
+    );
+
+
+    /* STUDENT DATA UPDATE */
+
+    studentData = {
+
+        ...studentData,
+
+        studentId:studentId,
+
+        name:name,
+
+        email:email,
+
+        mobile:mobile,
+
+        course:course,
+
+        branch:branch,
+
+        semester:semester,
+
+        cgpa:cgpa,
+
+        skills:skills,
+
+        resumeName:resumeName
+    };
+
+    localStorage.setItem(
+        "studentData",
+        JSON.stringify(studentData)
+    );
+
+
+    /* STUDENT NOTIFICATION */
+
+    let studentNotifications =
+        safeParse(
+            "studentNotifications",
+            []
+        );
+
+    if(!Array.isArray(studentNotifications)){
+        studentNotifications = [];
+    }
+
+    studentNotifications.unshift({
+
+        id:
+            "SN" +
+            Date.now(),
+
+        studentId:
+            studentId,
+
+        title:
+            "APPLICATION SUBMITTED",
+
+        message:
+            `Your application for ${selectedDrive.role || "the placement role"} at ${selectedDrive.company || "the company"} has been submitted successfully.`,
+
+        applicationId:
+            application.id,
+
+        status:
+            "Pending",
+
+        createdAt:
+            new Date().toLocaleString(),
+
+        read:
+            false
+    });
+
+    localStorage.setItem(
+        "studentNotifications",
+        JSON.stringify(
+            studentNotifications
+        )
+    );
+
+
+    /* COMPANY NOTIFICATION */
+
+    let companyNotifications =
+        safeParse(
+            "companyNotifications",
+            []
+        );
+
+    if(!Array.isArray(companyNotifications)){
+        companyNotifications = [];
+    }
+
+    companyNotifications.unshift({
+
+        id:
+            "CN" +
+            Date.now(),
+
+        company:
+            selectedDrive.company || "",
+
+        companyId:
+            selectedDrive.companyId ||
+            "COM1001",
+
+        applicationId:
+            application.id,
+
+        studentId:
+            studentId,
+
+        studentName:
+            name,
+
+        role:
+            selectedDrive.role || "",
+
+        title:
+            "NEW STUDENT APPLICATION",
+
+        message:
+            `${name} has applied for ${selectedDrive.role || "a placement role"}.`,
+
+        createdAt:
+            new Date().toLocaleString(),
+
+        read:
+            false,
+
+        type:
+            "new_application"
+    });
+
+    localStorage.setItem(
+        "companyNotifications",
+        JSON.stringify(
+            companyNotifications
+        )
+    );
+
+
+    /* SHOW SUCCESS */
+
+    document.getElementById("successModal")
+        .style.display = "flex";
+
+
+    /* REDIRECT */
+
+    setTimeout(function(){
+
+        window.location.href =
+            "status.html";
+
+    },1800);
+
+});
+
+</script>
+
+</body>
+</html>

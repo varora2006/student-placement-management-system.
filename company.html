@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Times New Roman",serif;
+    min-height:100vh;
+    color:#192844;
+    background:linear-gradient(135deg,#eef7ff,#f7efff,#eafff8);
+    background-size:400% 400%;
+    animation:bgMove 14s ease infinite;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.blob{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(6px);
+    opacity:.22;
+    z-index:-1;
+    animation:float 8s ease-in-out infinite;
+}
+
+.blob.one{
+    width:280px;
+    height:280px;
+    background:#00d5ff;
+    top:-100px;
+    left:-80px;
+}
+
+.blob.two{
+    width:320px;
+    height:320px;
+    background:#bd4cff;
+    right:-100px;
+    bottom:-100px;
+    animation-delay:2s;
+}
+
+.blob.three{
+    width:170px;
+    height:170px;
+    background:#42ffb0;
+    top:35%;
+    right:28%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+    0%,100%{transform:translate(0,0)}
+    50%{transform:translate(25px,-25px)}
+}
+
+nav{
+    height:76px;
+    padding:0 5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(30,50,90,.12);
+    box-shadow:0 8px 30px rgba(30,50,90,.08);
+}
+
+.logo{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:23px;
+    font-weight:bold;
+    color:#172d55;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.company-badge{
+    padding:9px 17px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#e4f8ff,#f0e5ff);
+    font-weight:bold;
+    color:#26365a;
+}
+
+.logout{
+    border:none;
+    padding:10px 18px;
+    border-radius:22px;
+    background:linear-gradient(90deg,#405de6,#9146d8);
+    color:white;
+    font-family:"Times New Roman",serif;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.logout:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 22px rgba(70,70,180,.25);
+}
+
+.container{
+    width:92%;
+    max-width:1350px;
+    margin:auto;
+    padding:35px 0 60px;
+}
+
+.welcome{
+    padding:38px;
+    border-radius:28px;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.95);
+    box-shadow:0 18px 55px rgba(40,60,100,.10);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+    animation:flyDown 1s ease forwards;
+    opacity:0;
+    transform:translateY(-45px);
+}
+
+@keyframes flyDown{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.welcome h1{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:34px;
+    font-weight:bold;
+    color:#172d55;
+    margin-bottom:12px;
+}
+
+.welcome p{
+    font-size:18px;
+    color:#5b6880;
+    line-height:1.5;
+}
+
+.welcome-icon{
+    min-width:100px;
+    height:100px;
+    border-radius:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    background:linear-gradient(135deg,#def8ff,#eee0ff);
+    box-shadow:0 12px 35px rgba(80,70,180,.13);
+    animation:iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-9px)}
+}
+
+.section-title{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:25px;
+    color:#1c3158;
+    margin:38px 0 20px;
+    font-weight:bold;
+    animation:slideLeft .8s ease forwards;
+    opacity:0;
+    transform:translateX(-30px);
+}
+
+@keyframes slideLeft{
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:18px;
+}
+
+.stat{
+    background:rgba(255,255,255,.78);
+    border:1px solid rgba(255,255,255,.95);
+    border-radius:22px;
+    padding:24px 20px;
+    box-shadow:0 14px 40px rgba(35,55,95,.08);
+    transition:.35s;
+    opacity:0;
+    transform:translateY(40px);
+    animation:cardUp .8s ease forwards;
+}
+
+.stat:nth-child(1){animation-delay:.15s}
+.stat:nth-child(2){animation-delay:.3s}
+.stat:nth-child(3){animation-delay:.45s}
+.stat:nth-child(4){animation-delay:.6s}
+.stat:nth-child(5){animation-delay:.75s}
+
+@keyframes cardUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.stat:hover{
+    transform:translateY(-8px);
+    box-shadow:0 22px 45px rgba(40,60,100,.14);
+}
+
+.stat-icon{
+    font-size:29px;
+    margin-bottom:13px;
+}
+
+.stat h3{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:29px;
+    color:#1c3561;
+    margin-bottom:6px;
+}
+
+.stat p{
+    color:#68758d;
+    font-size:15px;
+}
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.quick-card{
+    text-decoration:none;
+    color:#1b2c4e;
+    background:rgba(255,255,255,.78);
+    border:1px solid rgba(255,255,255,.95);
+    border-radius:24px;
+    padding:28px 22px;
+    box-shadow:0 14px 40px rgba(35,55,95,.08);
+    transition:.35s;
+    opacity:0;
+    transform:translateX(-35px);
+    animation:quickFly .8s ease forwards;
+}
+
+.quick-card:nth-child(1){animation-delay:.2s}
+.quick-card:nth-child(2){animation-delay:.4s}
+.quick-card:nth-child(3){animation-delay:.6s}
+.quick-card:nth-child(4){animation-delay:.8s}
+
+@keyframes quickFly{
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.quick-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 22px 45px rgba(50,65,110,.15);
+}
+
+.quick-icon{
+    font-size:34px;
+    margin-bottom:14px;
+}
+
+.quick-card h3{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.quick-card p{
+    color:#68748c;
+    font-size:15px;
+    line-height:1.4;
+}
+
+.content-grid{
+    display:grid;
+    grid-template-columns:1.3fr .9fr;
+    gap:22px;
+}
+
+.panel{
+    background:rgba(255,255,255,.78);
+    border:1px solid rgba(255,255,255,.95);
+    border-radius:25px;
+    padding:27px;
+    box-shadow:0 14px 40px rgba(35,55,95,.08);
+    animation:fadePanel 1s ease forwards;
+    opacity:0;
+}
+
+@keyframes fadePanel{
+    to{opacity:1}
+}
+
+.panel h2{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:22px;
+    color:#1d3157;
+    margin-bottom:20px;
+}
+
+.application{
+    padding:17px 0;
+    border-bottom:1px solid #e7ecf4;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.application:last-child{
+    border-bottom:none;
+}
+
+.app-info h3{
+    font-size:17px;
+    margin-bottom:5px;
+}
+
+.app-info p{
+    font-size:14px;
+    color:#69758b;
+}
+
+.status{
+    padding:7px 13px;
+    border-radius:18px;
+    font-size:12px;
+    font-weight:bold;
+    background:#fff1cc;
+    color:#856300;
+}
+
+.status.shortlisted{
+    background:#e3f5ff;
+    color:#11648c;
+}
+
+.status.interview{
+    background:#eee7ff;
+    color:#653ca3;
+}
+
+.status.selected{
+    background:#e1faed;
+    color:#147044;
+}
+
+.status.rejected{
+    background:#ffe7e7;
+    color:#a42e2e;
+}
+
+.notification{
+    padding:16px 0;
+    border-bottom:1px solid #e7ecf4;
+    animation:notificationFly .7s ease forwards;
+    opacity:0;
+    transform:translateX(25px);
+}
+
+.notification:nth-child(1){animation-delay:.2s}
+.notification:nth-child(2){animation-delay:.35s}
+.notification:nth-child(3){animation-delay:.5s}
+.notification:nth-child(4){animation-delay:.65s}
+
+@keyframes notificationFly{
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.notification:last-child{
+    border-bottom:none;
+}
+
+.notification h3{
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.notification p{
+    color:#68758c;
+    font-size:14px;
+    line-height:1.4;
+}
+
+.notification small{
+    display:block;
+    margin-top:7px;
+    color:#929caf;
+}
+
+.empty{
+    text-align:center;
+    padding:30px 10px;
+    color:#758197;
+}
+
+.drive-box{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.drive{
+    padding:20px;
+    border-radius:20px;
+    background:rgba(246,249,255,.8);
+    border:1px solid #e5ebf5;
+    transition:.3s;
+}
+
+.drive:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 30px rgba(40,60,100,.10);
+}
+
+.drive h3{
+    font-family:Algerian,"Times New Roman",serif;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.drive p{
+    color:#68748c;
+    font-size:14px;
+    line-height:1.5;
+}
+
+.footer-note{
+    text-align:center;
+    margin-top:28px;
+    color:#718097;
+    font-size:14px;
+}
+
+@media(max-width:1050px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .quick-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+
+    .drive-box{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:700px){
+
+    nav{
+        height:auto;
+        padding:16px 20px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .logo{
+        font-size:18px;
+        text-align:center;
+    }
+
+    .container{
+        width:94%;
+        padding-top:25px;
+    }
+
+    .welcome{
+        padding:28px 22px;
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .welcome p{
+        font-size:16px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .quick-grid{
+        grid-template-columns:1fr;
+    }
+
+    .drive-box{
+        grid-template-columns:1fr;
+    }
+
+    .application{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+}
+
+@media(max-width:430px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .welcome-icon{
+        width:85px;
+        min-width:85px;
+        height:85px;
+        font-size:38px;
+    }
+
+    .section-title{
+        font-size:21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob one"></div>
+<div class="blob two"></div>
+<div class="blob three"></div>
+
+<nav>
+
+    <div class="logo">
+        STUDENT PLACEMENT SYSTEM
+    </div>
+
+    <div class="nav-right">
+
+        <div class="company-badge">
+            🏢 <span id="companyDisplay">COM1001</span>
+        </div>
+
+        <button class="logout" onclick="logout()">
+            LOGOUT
+        </button>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <section class="welcome">
+
+        <div>
+
+            <h1>
+                WELCOME, COMPANY
+            </h1>
+
+            <p>
+                MANAGE YOUR PLACEMENT DRIVES, REVIEW STUDENT
+                APPLICATIONS AND CONNECT WITH POTENTIAL TALENT.
+            </p>
+
+        </div>
+
+        <div class="welcome-icon">
+            🏢
+        </div>
+
+    </section>
+
+
+    <h2 class="section-title">
+        COMPANY OVERVIEW
+    </h2>
+
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📢
+            </div>
+
+            <h3 id="driveCount">
+                0
+            </h3>
+
+            <p>
+                PLACEMENT DRIVES
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                👨‍🎓
+            </div>
+
+            <h3 id="applicantCount">
+                0
+            </h3>
+
+            <p>
+                APPLICANTS
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <h3 id="shortlistedCount">
+                0
+            </h3>
+
+            <p>
+                SHORTLISTED
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <h3 id="interviewCount">
+                0
+            </h3>
+
+            <p>
+                INTERVIEWS
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🏆
+            </div>
+
+            <h3 id="selectedCount">
+                0
+            </h3>
+
+            <p>
+                SELECTED
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <h2 class="section-title">
+        QUICK ACCESS
+    </h2>
+
+
+    <section class="quick-grid">
+
+        <a href="#drives" class="quick-card">
+
+            <div class="quick-icon">
+                📢
+            </div>
+
+            <h3>
+                PLACEMENT DRIVES
+            </h3>
+
+            <p>
+                VIEW YOUR ACTIVE PLACEMENT DRIVES AND REQUIREMENTS.
+            </p>
+
+        </a>
+
+
+        <a href="#applications" class="quick-card">
+
+            <div class="quick-icon">
+                📋
+            </div>
+
+            <h3>
+                STUDENT APPLICATIONS
+            </h3>
+
+            <p>
+                REVIEW AND MANAGE STUDENTS WHO HAVE APPLIED.
+            </p>
+
+        </a>
+
+
+        <a href="#notifications" class="quick-card">
+
+            <div class="quick-icon">
+                🔔
+            </div>
+
+            <h3>
+                NOTIFICATIONS
+            </h3>
+
+            <p>
+                CHECK NEW APPLICATIONS AND PLACEMENT UPDATES.
+            </p>
+
+        </a>
+
+
+        <a href="index.html" class="quick-card">
+
+            <div class="quick-icon">
+                🏠
+            </div>
+
+            <h3>
+                HOME
+            </h3>
+
+            <p>
+                RETURN TO THE MAIN PLACEMENT SYSTEM.
+            </p>
+
+        </a>
+
+    </section>
+
+
+    <h2 class="section-title" id="applications">
+        STUDENT APPLICATIONS
+    </h2>
+
+
+    <section class="content-grid">
+
+        <div class="panel">
+
+            <h2>
+                RECENT APPLICANTS
+            </h2>
+
+            <div id="applicationsBox"></div>
+
+        </div>
+
+
+        <div class="panel" id="notifications">
+
+            <h2>
+                COMPANY NOTIFICATIONS
+            </h2>
+
+            <div id="notificationsBox"></div>
+
+        </div>
+
+    </section>
+
+
+    <h2 class="section-title" id="drives">
+        YOUR PLACEMENT DRIVES
+    </h2>
+
+
+    <section class="panel">
+
+        <div id="drivesBox" class="drive-box"></div>
+
+    </section>
+
+
+    <div class="footer-note">
+        STUDENT PLACEMENT MANAGEMENT SYSTEM • COMPANY DASHBOARD
+    </div>
+
+</div>
+
+
+<script>
+
+function getData(key){
+
+    try{
+        return JSON.parse(localStorage.getItem(key)) || [];
+    }catch(error){
+        return [];
+    }
+
+}
+
+
+const companyId =
+    localStorage.getItem("companyId") || "COM1001";
+
+
+document.getElementById("companyDisplay").innerText =
+    companyId;
+
+
+const drives =
+    getData("placementDrives");
+
+
+const applications =
+    getData("applications");
+
+
+const companyApplications =
+    applications.filter(app =>
+        String(app.companyId || "").toUpperCase() ===
+        String(companyId).toUpperCase()
+        ||
+        (
+            !app.companyId &&
+            String(app.company || "").toLowerCase() ===
+            "tcs"
+        )
+    );
+
+
+const companyDrives =
+    drives.filter(drive =>
+        String(drive.companyId || "").toUpperCase() ===
+        String(companyId).toUpperCase()
+        ||
+        String(drive.companyId || "") === ""
+        ||
+        (
+            companyId === "COM1001" &&
+            String(drive.company || "").toLowerCase() === "tcs"
+        )
+    );
+
+
+document.getElementById("driveCount").innerText =
+    companyDrives.length;
+
+
+document.getElementById("applicantCount").innerText =
+    companyApplications.length;
+
+
+document.getElementById("shortlistedCount").innerText =
+    companyApplications.filter(app =>
+        String(app.status).toLowerCase() === "shortlisted"
+    ).length;
+
+
+document.getElementById("interviewCount").innerText =
+    companyApplications.filter(app =>
+        String(app.status).toLowerCase() === "interview"
+    ).length;
+
+
+document.getElementById("selectedCount").innerText =
+    companyApplications.filter(app =>
+        String(app.status).toLowerCase() === "selected"
+    ).length;
+
+
+const applicationsBox =
+    document.getElementById("applicationsBox");
+
+
+if(companyApplications.length === 0){
+
+    applicationsBox.innerHTML = `
+        <div class="empty">
+            <h3>NO APPLICATIONS YET</h3>
+            <p>STUDENT APPLICATIONS WILL APPEAR HERE.</p>
+        </div>
+    `;
+
+}else{
+
+    applicationsBox.innerHTML =
+        companyApplications
+        .slice(-6)
+        .reverse()
+        .map(app => {
+
+            const status =
+                String(app.status || "Pending");
+
+            return `
+                <div class="application">
+
+                    <div class="app-info">
+
+                        <h3>
+                            ${app.studentName || "STUDENT"}
+                        </h3>
+
+                        <p>
+                            ${app.role || "PLACEMENT ROLE"}
+                            •
+                            ${app.course || "COURSE"}
+                            •
+                            CGPA: ${app.cgpa || "N/A"}
+                        </p>
+
+                    </div>
+
+                    <span class="status ${status.toLowerCase()}">
+                        ${status.toUpperCase()}
+                    </span>
+
+                </div>
+            `;
+
+        }).join("");
+
+}
+
+
+const notifications =
+    getData("companyNotifications");
+
+
+const companyNotifications =
+    notifications.filter(notification =>
+        String(notification.companyId || "").toUpperCase() ===
+        String(companyId).toUpperCase()
+        ||
+        (
+            !notification.companyId &&
+            companyId === "COM1001"
+        )
+    );
+
+
+const notificationsBox =
+    document.getElementById("notificationsBox");
+
+
+if(companyNotifications.length === 0){
+
+    notificationsBox.innerHTML = `
+        <div class="empty">
+            <h3>NO NEW NOTIFICATIONS</h3>
+            <p>NEW STUDENT APPLICATIONS WILL APPEAR HERE.</p>
+        </div>
+    `;
+
+}else{
+
+    notificationsBox.innerHTML =
+        companyNotifications
+        .slice(-6)
+        .reverse()
+        .map(notification => {
+
+            return `
+                <div class="notification">
+
+                    <h3>
+                        🔔 ${notification.title || "NEW NOTIFICATION"}
+                    </h3>
+
+                    <p>
+                        ${notification.message || "NEW PLACEMENT UPDATE"}
+                    </p>
+
+                    <small>
+                        ${notification.createdAt || ""}
+                    </small>
+
+                </div>
+            `;
+
+        }).join("");
+
+}
+
+
+const drivesBox =
+    document.getElementById("drivesBox");
+
+
+if(companyDrives.length === 0){
+
+    drivesBox.innerHTML = `
+        <div class="empty">
+            <h3>NO PLACEMENT DRIVES AVAILABLE</h3>
+            <p>PLACEMENT DRIVES WILL APPEAR HERE.</p>
+        </div>
+    `;
+
+}else{
+
+    drivesBox.innerHTML =
+        companyDrives
+        .slice(0,6)
+        .map(drive => {
+
+            return `
+                <div class="drive">
+
+                    <h3>
+                        ${drive.role || "PLACEMENT ROLE"}
+                    </h3>
+
+                    <p>
+                        <strong>COMPANY:</strong>
+                        ${drive.company || "COMPANY"}
+                    </p>
+
+                    <p>
+                        <strong>PACKAGE:</strong>
+                        ${drive.package || "AS PER COMPANY"}
+                    </p>
+
+                    <p>
+                        <strong>LOCATION:</strong>
+                        ${drive.location || "MULTIPLE LOCATIONS"}
+                    </p>
+
+                    <p>
+                        <strong>TYPE:</strong>
+                        ${drive.type || "FULL TIME"}
+                    </p>
+
+                </div>
+            `;
+
+        }).join("");
+
+}
+
+
+function logout(){
+
+    localStorage.removeItem("companyLoggedIn");
+    localStorage.removeItem("companyId");
+
+    window.location.href =
+        "company-login.html";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notifications | Student Placement Management System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:"Times New Roman",serif;
+    background:
+        radial-gradient(circle at 10% 20%,rgba(125,90,255,.18),transparent 30%),
+        radial-gradient(circle at 90% 80%,rgba(0,210,255,.15),transparent 30%),
+        #080b1c;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+.bg{
+    position:fixed;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.28;
+    z-index:-1;
+    animation:float 8s infinite alternate ease-in-out;
+}
+
+.bg1{
+    background:#7c4dff;
+    top:-150px;
+    left:-100px;
+}
+
+.bg2{
+    background:#00c6ff;
+    right:-150px;
+    bottom:-150px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    from{transform:translate(0,0)}
+    to{transform:translate(70px,50px)}
+}
+
+nav{
+    width:100%;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(8,11,28,.72);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.1);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.logo{
+    font-family:Algerian,serif;
+    font-size:24px;
+    letter-spacing:1px;
+}
+
+.logo span{
+    color:#6ee7ff;
+}
+
+.back{
+    text-decoration:none;
+    color:#fff;
+    padding:10px 20px;
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:25px;
+    transition:.3s;
+}
+
+.back:hover{
+    background:#fff;
+    color:#080b1c;
+    transform:translateY(-3px);
+}
+
+.container{
+    width:88%;
+    max-width:1100px;
+    margin:55px auto;
+}
+
+.hero{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.hero h1{
+    font-family:Algerian,serif;
+    font-size:45px;
+    letter-spacing:2px;
+    animation:flyDown 1s ease forwards;
+}
+
+.hero p{
+    margin-top:12px;
+    font-size:18px;
+    color:#cbd5e1;
+    animation:slideRight 1s ease .3s both;
+}
+
+@keyframes flyDown{
+    from{
+        opacity:0;
+        transform:translateY(-80px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes slideRight{
+    from{
+        opacity:0;
+        transform:translateX(-80px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-bottom:35px;
+}
+
+.stat{
+    padding:24px;
+    border-radius:20px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(15px);
+    text-align:center;
+    animation:pop .7s ease both;
+    transition:.3s;
+}
+
+.stat:nth-child(2){animation-delay:.15s}
+.stat:nth-child(3){animation-delay:.3s}
+
+.stat:hover{
+    transform:translateY(-7px);
+    background:rgba(255,255,255,.13);
+}
+
+.stat h2{
+    font-family:Algerian,serif;
+    font-size:32px;
+}
+
+.stat p{
+    color:#cbd5e1;
+    margin-top:7px;
+}
+
+@keyframes pop{
+    from{
+        opacity:0;
+        transform:scale(.7);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.notification-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.notification{
+    position:relative;
+    padding:24px 25px 24px 80px;
+    border-radius:22px;
+    background:rgba(255,255,255,.075);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(15px);
+    transition:.35s;
+    animation:swipe .7s ease both;
+}
+
+.notification:nth-child(2){animation-delay:.1s}
+.notification:nth-child(3){animation-delay:.2s}
+.notification:nth-child(4){animation-delay:.3s}
+.notification:nth-child(5){animation-delay:.4s}
+
+@keyframes swipe{
+    from{
+        opacity:0;
+        transform:translateX(100px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.notification:hover{
+    transform:translateX(8px);
+    border-color:rgba(110,231,255,.45);
+}
+
+.notification.unread{
+    border-left:5px solid #6ee7ff;
+    box-shadow:0 0 25px rgba(110,231,255,.08);
+}
+
+.icon{
+    position:absolute;
+    left:22px;
+    top:23px;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    background:linear-gradient(135deg,#7c4dff,#00c6ff);
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{box-shadow:0 0 0 rgba(0,198,255,0)}
+    50%{box-shadow:0 0 20px rgba(0,198,255,.35)}
+}
+
+.notification h3{
+    font-size:21px;
+    text-transform:uppercase;
+    margin-bottom:7px;
+}
+
+.notification p{
+    color:#d3d9e6;
+    line-height:1.5;
+    font-size:16px;
+}
+
+.date{
+    display:block;
+    margin-top:10px;
+    color:#91a0b8;
+    font-size:14px;
+}
+
+.read-btn{
+    margin-top:15px;
+    padding:8px 17px;
+    border:none;
+    border-radius:20px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    cursor:pointer;
+    font-family:"Times New Roman",serif;
+    transition:.3s;
+}
+
+.read-btn:hover{
+    background:#6ee7ff;
+    color:#08101d;
+}
+
+.empty{
+    text-align:center;
+    padding:70px 20px;
+    border-radius:25px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.1);
+    animation:pop .8s ease;
+}
+
+.empty .big{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.empty h2{
+    font-family:Algerian,serif;
+    font-size:28px;
+}
+
+.empty p{
+    margin-top:10px;
+    color:#aeb9ca;
+}
+
+@media(max-width:750px){
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:32px;
+    }
+
+    .container{
+        width:92%;
+    }
+
+    .notification{
+        padding-left:70px;
+    }
+
+    nav{
+        padding:16px 4%;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg bg1"></div>
+<div class="bg bg2"></div>
+
+<nav>
+    <div class="logo">PLACEMENT <span>HUB</span></div>
+    <a href="student.html" class="back">← DASHBOARD</a>
+</nav>
+
+<div class="container">
+
+    <div class="hero">
+        <h1>NOTIFICATIONS</h1>
+        <p>Stay updated with your placement applications and important activities.</p>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <h2 id="totalCount">0</h2>
+            <p>TOTAL NOTIFICATIONS</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="unreadCount">0</h2>
+            <p>UNREAD</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="readCount">0</h2>
+            <p>READ</p>
+        </div>
+    </div>
+
+    <div id="notificationList" class="notification-list"></div>
+
+</div>
+
+<script>
+
+let studentId = localStorage.getItem("studentId") || "STU1001";
+
+let notifications = [];
+
+try{
+    notifications = JSON.parse(
+        localStorage.getItem("studentNotifications") || "[]"
+    );
+}catch(e){
+    notifications = [];
+}
+
+function loadNotifications(){
+
+    const list = document.getElementById("notificationList");
+
+    const studentNotifications = notifications.filter(
+        n => !n.studentId || n.studentId === studentId
+    );
+
+    document.getElementById("totalCount").textContent =
+        studentNotifications.length;
+
+    const unread = studentNotifications.filter(
+        n => n.read !== true
+    ).length;
+
+    document.getElementById("unreadCount").textContent = unread;
+
+    document.getElementById("readCount").textContent =
+        studentNotifications.length - unread;
+
+    if(studentNotifications.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                <div class="big">🔔</div>
+                <h2>NO NOTIFICATIONS</h2>
+                <p>Your placement updates will appear here.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = studentNotifications.map((n,index)=>{
+
+        const realIndex = notifications.indexOf(n);
+
+        return `
+            <div class="notification ${n.read === true ? "" : "unread"}">
+
+                <div class="icon">🔔</div>
+
+                <h3>${escapeHTML(n.title || "PLACEMENT UPDATE")}</h3>
+
+                <p>
+                    ${escapeHTML(
+                        n.message || "You have a new placement notification."
+                    )}
+                </p>
+
+                <span class="date">
+                    ${escapeHTML(
+                        n.createdAt || n.date || "Recently"
+                    )}
+                </span>
+
+                ${
+                    n.read !== true
+                    ?
+                    `<button class="read-btn"
+                        onclick="markRead(${realIndex})">
+                        MARK AS READ
+                    </button>`
+                    :
+                    `<button class="read-btn" disabled>
+                        ✓ READ
+                    </button>`
+                }
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+function markRead(index){
+
+    if(!notifications[index]) return;
+
+    notifications[index].read = true;
+
+    localStorage.setItem(
+        "studentNotifications",
+        JSON.stringify(notifications)
+    );
+
+    loadNotifications();
+}
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+loadNotifications();
+
+</script>
+
+</body>
+</html>

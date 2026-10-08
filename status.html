@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Application Status | Student</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Times New Roman",serif;
+    background:linear-gradient(135deg,#eef4ff,#f8f5ff,#edfaff);
+    color:#18233b;
+    min-height:100vh;
+}
+
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:330px;
+    height:330px;
+    border-radius:50%;
+    filter:blur(85px);
+    opacity:.35;
+    z-index:-1;
+    animation:float 8s infinite alternate;
+}
+
+body::before{
+    background:#8798ff;
+    top:-100px;
+    left:-80px;
+}
+
+body::after{
+    background:#67d9ff;
+    right:-100px;
+    bottom:-100px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    from{
+        transform:translate(0,0);
+    }
+    to{
+        transform:translate(40px,30px);
+    }
+}
+
+nav{
+    height:75px;
+    padding:0 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.7);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    font-family:Algerian,serif;
+    font-size:24px;
+    font-weight:bold;
+    color:#243b80;
+}
+
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.student-badge{
+    padding:10px 18px;
+    border-radius:25px;
+    background:#e9edff;
+    color:#243b80;
+    font-weight:bold;
+}
+
+.dashboard{
+    text-decoration:none;
+    background:#243b80;
+    color:white;
+    padding:10px 18px;
+    border-radius:25px;
+    transition:.3s;
+}
+
+.dashboard:hover{
+    transform:translateY(-3px);
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:35px auto;
+}
+
+.hero{
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(15px);
+    padding:35px;
+    border-radius:28px;
+    box-shadow:0 15px 40px rgba(36,59,128,.12);
+    animation:slideDown .8s ease;
+}
+
+@keyframes slideDown{
+    from{
+        opacity:0;
+        transform:translateY(-30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.hero h1{
+    font-family:Algerian,serif;
+    font-weight:bold;
+    text-transform:uppercase;
+    color:#243b80;
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin:25px 0;
+}
+
+.stat{
+    background:rgba(255,255,255,.82);
+    border-radius:20px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    animation:cardIn .7s ease both;
+}
+
+.stat:nth-child(2){
+    animation-delay:.1s;
+}
+
+.stat:nth-child(3){
+    animation-delay:.2s;
+}
+
+.stat:nth-child(4){
+    animation-delay:.3s;
+}
+
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.stat h2{
+    color:#243b80;
+    font-size:30px;
+}
+
+.stat p{
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.application-card{
+    background:rgba(255,255,255,.84);
+    border-radius:25px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    animation:fadeUp .7s ease both;
+    transition:.3s;
+}
+
+.application-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(36,59,128,.13);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.app-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+}
+
+.company{
+    font-size:25px;
+    font-weight:bold;
+    color:#243b80;
+}
+
+.role{
+    font-size:19px;
+    margin-top:5px;
+}
+
+.status{
+    padding:9px 16px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+.pending{
+    background:#fff1c7;
+    color:#997000;
+}
+
+.shortlisted{
+    background:#dff7e8;
+    color:#14733c;
+}
+
+.interview{
+    background:#e4e9ff;
+    color:#3048a5;
+}
+
+.selected{
+    background:#d7f8df;
+    color:#08752f;
+}
+
+.rejected{
+    background:#ffe0e0;
+    color:#b32626;
+}
+
+.details{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:20px 0;
+}
+
+.detail{
+    padding:9px 14px;
+    border-radius:12px;
+    background:#f1f4ff;
+}
+
+.view-btn{
+    border:none;
+    padding:12px 20px;
+    border-radius:13px;
+    background:#243b80;
+    color:white;
+    font-family:"Times New Roman",serif;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.view-btn:hover{
+    transform:translateY(-3px);
+}
+
+.evaluation-box{
+    margin-top:22px;
+    padding:22px;
+    border-radius:20px;
+    background:#f6f7ff;
+    border:1px solid #e2e6ff;
+}
+
+.evaluation-box h3{
+    font-family:Algerian,serif;
+    text-transform:uppercase;
+    color:#243b80;
+    margin-bottom:18px;
+    font-size:22px;
+}
+
+.score-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.score-item{
+    background:white;
+    padding:15px;
+    border-radius:14px;
+}
+
+.score-item strong{
+    display:block;
+    color:#243b80;
+    margin-bottom:5px;
+}
+
+.total-score{
+    margin-top:18px;
+    background:#243b80;
+    color:white;
+    text-align:center;
+    padding:16px;
+    border-radius:15px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.decision-box{
+    margin-top:18px;
+    padding:16px;
+    border-radius:15px;
+    font-weight:bold;
+}
+
+.selected-decision{
+    background:#dff7e8;
+    color:#08752f;
+}
+
+.rejected-decision{
+    background:#ffe2e2;
+    color:#b32626;
+}
+
+.reason-box{
+    margin-top:12px;
+    background:white;
+    padding:15px;
+    border-radius:14px;
+}
+
+.reason-box strong{
+    color:#b32626;
+    display:block;
+    margin-bottom:5px;
+}
+
+.remark-box{
+    margin-top:12px;
+    background:white;
+    padding:15px;
+    border-radius:14px;
+}
+
+.remark-box strong{
+    color:#243b80;
+    display:block;
+    margin-bottom:5px;
+}
+
+.empty{
+    background:rgba(255,255,255,.82);
+    padding:60px 20px;
+    text-align:center;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+}
+
+.empty h2{
+    font-family:Algerian,serif;
+    color:#243b80;
+    margin-bottom:10px;
+}
+
+.explore{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 22px;
+    background:#243b80;
+    color:white;
+    text-decoration:none;
+    border-radius:13px;
+}
+
+@media(max-width:800px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .score-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    nav{
+        padding:0 4%;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .student-badge{
+        display:none;
+    }
+
+    .hero{
+        padding:25px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+
+    .app-top{
+        flex-direction:column;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .company{
+        font-size:22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        PLACEMENT PORTAL
+    </div>
+
+    <div class="nav-right">
+
+        <span class="student-badge" id="studentBadge">
+            STUDENT
+        </span>
+
+        <a href="student.html" class="dashboard">
+            DASHBOARD
+        </a>
+
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <section class="hero">
+
+        <h1>
+            APPLICATION STATUS
+        </h1>
+
+        <p>
+            Track your placement applications, interview progress and final evaluation.
+        </p>
+
+    </section>
+
+
+    <div class="stats">
+
+        <div class="stat">
+            <h2 id="total">0</h2>
+            <p>TOTAL APPLICATIONS</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="pending">0</h2>
+            <p>PENDING</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="shortlisted">0</h2>
+            <p>SHORTLISTED</p>
+        </div>
+
+        <div class="stat">
+            <h2 id="final">0</h2>
+            <p>FINAL DECISIONS</p>
+        </div>
+
+    </div>
+
+
+    <div id="applicationsList"></div>
+
+</div>
+
+
+<script>
+
+const studentId =
+    localStorage.getItem("studentId") || "STU1001";
+
+
+document.getElementById("studentBadge").textContent =
+    studentId;
+
+
+function getApplications(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem("applications") || "[]"
+        );
+
+    }catch(error){
+
+        return [];
+    }
+}
+
+
+function renderApplications(){
+
+    const allApplications = getApplications();
+
+    const applications =
+        allApplications.filter(
+            app => String(app.studentId) === String(studentId)
+        );
+
+
+    document.getElementById("total").textContent =
+        applications.length;
+
+
+    document.getElementById("pending").textContent =
+        applications.filter(
+            app => app.status === "Pending"
+        ).length;
+
+
+    document.getElementById("shortlisted").textContent =
+        applications.filter(
+            app => app.status === "Shortlisted"
+        ).length;
+
+
+    document.getElementById("final").textContent =
+        applications.filter(
+            app =>
+            app.status === "Selected" ||
+            app.status === "Rejected"
+        ).length;
+
+
+    const list =
+        document.getElementById("applicationsList");
+
+
+    if(applications.length === 0){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <h2>
+                    NO APPLICATIONS YET
+                </h2>
+
+                <p>
+                    You have not applied for any placement drive.
+                </p>
+
+                <a href="drives.html" class="explore">
+                    EXPLORE PLACEMENT DRIVES
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        applications.map((app,index) => {
+
+            const status =
+                app.status || "Pending";
+
+
+            const statusClass =
+                status.toLowerCase();
+
+
+            const isFinal =
+                status === "Selected" ||
+                status === "Rejected";
+
+
+            let evaluationHTML = "";
+
+
+            /*
+             * IMPORTANT:
+             * Evaluation is visible ONLY after
+             * Selected or Rejected.
+             */
+
+            if(isFinal && app.evaluation){
+
+                const evaluation =
+                    app.evaluation;
+
+
+                evaluationHTML = `
+
+                    <div class="evaluation-box">
+
+                        <h3>
+                            INTERVIEW EVALUATION
+                        </h3>
+
+
+                        <div class="score-grid">
+
+                            <div class="score-item">
+
+                                <strong>
+                                    RESUME / PROFILE
+                                </strong>
+
+                                ${evaluation.resumeScore || 0} / 20
+
+                            </div>
+
+
+                            <div class="score-item">
+
+                                <strong>
+                                    STUDENT KNOWLEDGE
+                                </strong>
+
+                                ${evaluation.knowledgeScore || 0} / 20
+
+                            </div>
+
+
+                            <div class="score-item">
+
+                                <strong>
+                                    TECHNICAL KNOWLEDGE
+                                </strong>
+
+                                ${evaluation.technicalScore || 0} / 20
+
+                            </div>
+
+
+                            <div class="score-item">
+
+                                <strong>
+                                    COMMUNICATION SKILLS
+                                </strong>
+
+                                ${evaluation.communicationScore || 0} / 20
+
+                            </div>
+
+
+                            <div class="score-item">
+
+                                <strong>
+                                    INTERVIEW PERFORMANCE & CONFIDENCE
+                                </strong>
+
+                                ${evaluation.performanceScore || 0} / 20
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="total-score">
+
+                            TOTAL SCORE:
+                            ${evaluation.total || 0} / 100
+
+                        </div>
+
+
+                        <div class="
+                            decision-box
+                            ${status === "Selected"
+                            ? "selected-decision"
+                            : "rejected-decision"}
+                        ">
+
+                            FINAL DECISION:
+                            ${status.toUpperCase()}
+
+                        </div>
+
+
+                        ${
+                            status === "Rejected"
+                            ?
+                            `
+
+                            <div class="reason-box">
+
+                                <strong>
+                                    REJECTION REASON
+                                </strong>
+
+                                ${
+                                    evaluation.rejectionReason ||
+                                    app.rejectionReason ||
+                                    "No reason provided."
+                                }
+
+                            </div>
+
+                            `
+                            :
+                            ""
+                        }
+
+
+                        ${
+                            evaluation.remark
+                            ?
+                            `
+
+                            <div class="remark-box">
+
+                                <strong>
+                                    INTERVIEWER REMARK
+                                </strong>
+
+                                ${evaluation.remark}
+
+                            </div>
+
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                `;
+
+            }
+
+
+            return `
+
+                <div
+                    class="application-card"
+                    style="animation-delay:${index * 0.08}s"
+                >
+
+                    <div class="app-top">
+
+                        <div>
+
+                            <div class="company">
+
+                                ${app.company || "COMPANY"}
+
+                            </div>
+
+                            <div class="role">
+
+                                ${app.role || "PLACEMENT ROLE"}
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="
+                            status
+                            ${statusClass}
+                        ">
+
+                            ${status.toUpperCase()}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="details">
+
+                        <span class="detail">
+
+                            <b>COURSE:</b>
+                            ${app.course || "N/A"}
+
+                        </span>
+
+
+                        <span class="detail">
+
+                            <b>CGPA:</b>
+                            ${app.cgpa || "N/A"}
+
+                        </span>
+
+
+                        <span class="detail">
+
+                            <b>PACKAGE:</b>
+                            ${app.package || "N/A"}
+
+                        </span>
+
+
+                        <span class="detail">
+
+                            <b>LOCATION:</b>
+                            ${app.location || "N/A"}
+
+                        </span>
+
+
+                        <span class="detail">
+
+                            <b>APPLIED:</b>
+                            ${app.appliedOn || "N/A"}
+
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        class="view-btn"
+                        onclick="viewDetails('${app.id}')"
+                    >
+
+                        VIEW APPLICATION
+
+                    </button>
+
+
+                    ${evaluationHTML}
+
+                </div>
+
+            `;
+
+        }).join("");
+}
+
+
+function viewDetails(id){
+
+    const applications =
+        getApplications();
+
+
+    const app =
+        applications.find(
+            item => String(item.id) === String(id)
+        );
+
+
+    if(!app) return;
+
+
+    alert(
+
+        "APPLICATION DETAILS\n\n" +
+
+        "STUDENT: " +
+        (app.studentName || "N/A") +
+
+        "\nSTUDENT ID: " +
+        (app.studentId || "N/A") +
+
+        "\nCOURSE: " +
+        (app.course || "N/A") +
+
+        "\nCGPA: " +
+        (app.cgpa || "N/A") +
+
+        "\nCOMPANY: " +
+        (app.company || "N/A") +
+
+        "\nROLE: " +
+        (app.role || "N/A") +
+
+        "\nPACKAGE: " +
+        (app.package || "N/A") +
+
+        "\nLOCATION: " +
+        (app.location || "N/A") +
+
+        "\nSTATUS: " +
+        (app.status || "Pending")
+
+    );
+}
+
+
+renderApplications();
+
+</script>
+
+</body>
+</html>

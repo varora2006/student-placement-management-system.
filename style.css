@@ -1,0 +1,653 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f9fc;
+    color: #172554;
+}
+
+.navbar {
+    height: 90px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+    color: #172554;
+}
+
+.logo span,
+footer span {
+    color: #2563eb;
+}
+
+.nav-links {
+    display: flex;
+    gap: 35px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #334155;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #2563eb;
+}
+
+.get-started {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 14px 25px;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.get-started:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+
+/* HERO */
+
+.hero {
+    min-height: 670px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    display: flex;
+    align-items: center;
+    padding: 70px 7%;
+}
+
+.hero-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 70px;
+}
+
+.hero-text {
+    max-width: 650px;
+}
+
+.small-title,
+.section-label {
+    color: #2563eb;
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: 62px;
+    line-height: 1.08;
+    margin-bottom: 28px;
+    color: #172554;
+}
+
+.hero h1 span {
+    color: #2563eb;
+}
+
+.hero-description {
+    font-size: 19px;
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.primary-btn,
+.secondary-btn {
+    padding: 15px 24px;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-btn {
+    border: none;
+    background: #2563eb;
+    color: white;
+}
+
+.primary-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: white;
+    color: #2563eb;
+    border: 2px solid #2563eb;
+}
+
+.secondary-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+
+/* HERO CARD */
+
+.hero-card {
+    width: 420px;
+    background: white;
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.15);
+}
+
+.portal-heading {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 30px;
+}
+
+.portal-icon {
+    width: 60px;
+    height: 60px;
+    background: #dbeafe;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.portal-heading h3 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.portal-heading p {
+    color: #64748b;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.stat-box {
+    background: #f8fafc;
+    padding: 18px 8px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.stat-box h2 {
+    color: #2563eb;
+    font-size: 22px;
+    margin-bottom: 7px;
+}
+
+.stat-box p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.progress-area {
+    margin-top: 28px;
+}
+
+.progress-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.progress-bar {
+    height: 11px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 85%;
+    height: 100%;
+    background: #2563eb;
+}
+
+
+/* SECTIONS */
+
+.section {
+    padding: 90px 7%;
+    background: white;
+}
+
+.section-heading {
+    max-width: 700px;
+    text-align: center;
+    margin: 0 auto 50px;
+}
+
+.section-heading h2 {
+    font-size: 40px;
+    margin-bottom: 18px;
+    color: #172554;
+}
+
+.section-heading h2 span {
+    color: #2563eb;
+}
+
+.section-heading > p:last-child {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+
+/* ABOUT */
+
+.about-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.about-card {
+    padding: 30px 24px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    transition: 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.card-icon {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.about-card h3 {
+    font-size: 20px;
+    margin-bottom: 13px;
+}
+
+.about-card p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+
+/* DRIVES */
+
+.drives-section {
+    background: #f8fafc;
+}
+
+.drive-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.drive-card {
+    background: white;
+    padding: 28px;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    transition: 0.3s;
+}
+
+.drive-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.1);
+}
+
+.company-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: #dbeafe;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.drive-card h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.drive-card > p {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.drive-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #475569;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.drive-card button,
+.login-card button {
+    width: 100%;
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 13px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.drive-card button:hover,
+.login-card button:hover {
+    background: #1d4ed8;
+}
+
+
+/* COMPANIES */
+
+.companies-section {
+    background: white;
+}
+
+.company-list {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+}
+
+.company-box {
+    min-height: 100px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #334155;
+    transition: 0.3s;
+}
+
+.company-box:hover {
+    color: #2563eb;
+    transform: translateY(-5px);
+}
+
+
+/* LOGIN */
+
+.login-section {
+    background: #f8fafc;
+}
+
+.login-cards {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.login-card {
+    background: white;
+    padding: 30px 24px;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.login-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(37, 99, 235, 0.1);
+}
+
+.login-icon {
+    font-size: 42px;
+    margin-bottom: 18px;
+}
+
+.login-card h3 {
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.login-card p {
+    color: #64748b;
+    line-height: 1.5;
+    font-size: 14px;
+    min-height: 65px;
+    margin-bottom: 20px;
+}
+
+.register-link {
+    display: block;
+    margin-top: 14px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+
+/* FOOTER */
+
+footer {
+    background: #172554;
+    color: white;
+    padding: 45px 7% 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.footer-content h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.footer-content p {
+    color: #cbd5e1;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links a {
+    color: #e2e8f0;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.copyright {
+    border-top: 1px solid #334155;
+    padding-top: 20px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .about-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .drive-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .company-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .login-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: auto;
+        padding: 20px 5%;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .get-started {
+        display: none;
+    }
+
+    .hero {
+        padding: 60px 5%;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-card {
+        width: 100%;
+    }
+
+    .section {
+        padding: 70px 5%;
+    }
+
+    .section-heading h2 {
+        font-size: 32px;
+    }
+
+    .about-cards,
+    .drive-cards,
+    .login-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .company-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+}
+
+@media (max-width: 450px) {
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .company-list {
+        grid-template-columns: 1fr;
+    }
+
+}

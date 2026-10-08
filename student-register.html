@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Registration | PlaceSphere</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Times New Roman",serif;
+    min-height:100vh;
+
+    background:
+    radial-gradient(circle at 8% 20%,rgba(80,105,220,.20),transparent 30%),
+    radial-gradient(circle at 92% 80%,rgba(15,170,125,.18),transparent 30%),
+    linear-gradient(135deg,#f5f7ff,#edf3ff,#f3fffa);
+
+    color:#1d315d;
+    overflow-x:hidden;
+}
+
+
+/* BACKGROUND */
+
+.background{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    opacity:.35;
+    animation:float 8s ease-in-out infinite;
+}
+
+.one{
+    width:270px;
+    height:270px;
+    background:#7188e5;
+    left:-100px;
+    top:100px;
+}
+
+.two{
+    width:220px;
+    height:220px;
+    background:#36cda5;
+    right:-80px;
+    bottom:70px;
+    animation-delay:2s;
+}
+
+.three{
+    width:110px;
+    height:110px;
+    background:#a17ce7;
+    right:22%;
+    top:12%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translate(0,0);
+    }
+
+    50%{
+        transform:translate(30px,-35px);
+    }
+}
+
+
+/* NAVBAR */
+
+.navbar{
+    height:72px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 7%;
+
+    background:rgba(255,255,255,.84);
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(40,60,110,.1);
+
+    box-shadow:0 5px 25px rgba(30,45,90,.07);
+
+    animation:navDown .8s ease;
+}
+
+@keyframes navDown{
+
+    from{
+        opacity:0;
+        transform:translateY(-100%);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.logo{
+    font-size:26px;
+    font-weight:bold;
+    color:#203d7b;
+}
+
+.logo span{
+    color:#10a77c;
+}
+
+.home-link{
+    text-decoration:none;
+    color:#213d78;
+    font-size:16px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.home-link:hover{
+    color:#10a77c;
+    transform:translateX(-5px);
+}
+
+
+/* MAIN */
+
+.main{
+    min-height:calc(100vh - 72px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:35px 20px;
+}
+
+
+/* CARD */
+
+.register-card{
+    width:720px;
+    max-width:100%;
+
+    padding:42px;
+
+    background:rgba(255,255,255,.93);
+
+    border:1px solid rgba(255,255,255,.95);
+
+    border-radius:30px;
+
+    box-shadow:
+    0 30px 75px rgba(35,55,110,.15);
+
+    backdrop-filter:blur(15px);
+
+    animation:
+    cardEntry 1s cubic-bezier(.17,.67,.3,1.3);
+}
+
+@keyframes cardEntry{
+
+    0%{
+        opacity:0;
+        transform:
+        translateY(100px)
+        scale(.82)
+        rotate(-2deg);
+    }
+
+    70%{
+        transform:
+        translateY(-10px)
+        scale(1.02);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+        translateY(0)
+        scale(1)
+        rotate(0);
+    }
+}
+
+
+/* HEADER */
+
+.register-header{
+    text-align:center;
+}
+
+.register-icon{
+    width:78px;
+    height:78px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:24px;
+
+    background:
+    linear-gradient(135deg,#e9eeff,#e2fff5);
+
+    font-size:38px;
+
+    box-shadow:
+    0 14px 30px rgba(50,70,140,.12);
+
+    animation:iconFloat 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat{
+
+    0%,100%{
+        transform:translateY(0) rotate(0);
+    }
+
+    50%{
+        transform:translateY(-8px) rotate(4deg);
+    }
+}
+
+h1{
+    margin-top:18px;
+
+    font-family:"Algerian","Times New Roman",serif;
+    font-weight:bold;
+
+    font-size:35px;
+
+    color:#203d7c;
+
+    text-transform:uppercase;
+
+    animation:titleIn .9s .15s both;
+}
+
+@keyframes titleIn{
+
+    from{
+        opacity:0;
+        transform:translateX(-70px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+.subtitle{
+    margin-top:8px;
+
+    color:#718099;
+
+    font-size:16px;
+
+    animation:fadeUp .8s .3s both;
+}
+
+
+/* FORM */
+
+form{
+    margin-top:30px;
+}
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:19px;
+}
+
+.field{
+    opacity:0;
+    transform:translateY(40px);
+
+    animation:fieldUp .7s forwards;
+}
+
+.field:nth-child(1){animation-delay:.35s;}
+.field:nth-child(2){animation-delay:.45s;}
+.field:nth-child(3){animation-delay:.55s;}
+.field:nth-child(4){animation-delay:.65s;}
+.field:nth-child(5){animation-delay:.75s;}
+.field:nth-child(6){animation-delay:.85s;}
+.field:nth-child(7){animation-delay:.95s;}
+.field:nth-child(8){animation-delay:1.05s;}
+
+@keyframes fieldUp{
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+label{
+    display:block;
+
+    margin-bottom:7px;
+
+    color:#29447e;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    text-transform:uppercase;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-icon{
+    position:absolute;
+
+    left:14px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    font-size:17px;
+
+    opacity:.7;
+}
+
+input,
+select{
+    width:100%;
+
+    padding:13px 14px 13px 43px;
+
+    border:1.5px solid #dce2ef;
+
+    border-radius:12px;
+
+    outline:none;
+
+    background:#fbfcff;
+
+    color:#243a68;
+
+    font-family:"Times New Roman",serif;
+
+    font-size:15px;
+
+    transition:.35s;
+}
+
+select{
+    padding-left:43px;
+}
+
+input:focus,
+select:focus{
+
+    border-color:#526ed0;
+
+    background:white;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 8px 22px rgba(70,90,170,.13);
+}
+
+input::placeholder{
+    color:#a3adbf;
+}
+
+
+/* TERMS */
+
+.terms{
+
+    margin-top:23px;
+
+    display:flex;
+    align-items:flex-start;
+
+    gap:9px;
+
+    color:#707e95;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    opacity:0;
+
+    animation:fadeUp .8s 1.15s forwards;
+}
+
+.terms input{
+    width:auto;
+    margin-top:4px;
+    accent-color:#3158c8;
+}
+
+.terms a{
+    color:#3158c8;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+
+/* BUTTON */
+
+.register-btn{
+
+    width:100%;
+
+    margin-top:23px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-family:"Times New Roman",serif;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    background:
+    linear-gradient(
+        135deg,
+        #203f85,
+        #685bd0,
+        #10a77c
+    );
+
+    background-size:200% 200%;
+
+    box-shadow:
+    0 14px 30px rgba(45,65,140,.22);
+
+    transition:.4s;
+
+    opacity:0;
+
+    animation:
+    buttonUp .8s 1.25s forwards,
+    gradientMove 4s ease infinite;
+}
+
+@keyframes buttonUp{
+
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes gradientMove{
+
+    0%,100%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+}
+
+.register-btn:hover{
+
+    transform:
+    translateY(-6px)
+    scale(1.02);
+
+    box-shadow:
+    0 22px 42px rgba(45,65,140,.28);
+}
+
+.register-btn:active{
+    transform:scale(.97);
+}
+
+
+/* LOGIN */
+
+.login-text{
+
+    text-align:center;
+
+    margin-top:22px;
+
+    color:#77849a;
+
+    font-size:15px;
+
+    opacity:0;
+
+    animation:fadeUp .8s 1.35s forwards;
+}
+
+.login-text a{
+
+    color:#3158c8;
+
+    font-weight:bold;
+
+    text-decoration:none;
+}
+
+.login-text a:hover{
+    color:#10a77c;
+}
+
+
+/* MESSAGE */
+
+.message{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+    font-size:14px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:650px){
+
+    .navbar{
+        padding:0 5%;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .home-link{
+        font-size:14px;
+    }
+
+    .register-card{
+        padding:30px 20px;
+        border-radius:24px;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="background">
+
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+    <div class="circle three"></div>
+
+</div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        Place<span>Sphere</span>
+    </div>
+
+    <a
+        href="index.html"
+        class="home-link">
+
+        ← BACK TO HOME
+
+    </a>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<div class="register-card">
+
+
+    <div class="register-header">
+
+        <div class="register-icon">
+            🎓
+        </div>
+
+        <h1>
+            STUDENT REGISTRATION
+        </h1>
+
+        <p class="subtitle">
+            CREATE YOUR DIGITAL PLACEMENT PROFILE
+        </p>
+
+    </div>
+
+
+    <form id="registerForm">
+
+
+        <div class="form-grid">
+
+
+            <div class="field">
+
+                <label>
+                    FULL NAME
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">👤</span>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="ENTER FULL NAME"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    STUDENT ID
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">🪪</span>
+
+                    <input
+                        type="text"
+                        id="studentId"
+                        placeholder="E.G. STU1002"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    EMAIL
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">📧</span>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="ENTER EMAIL ADDRESS"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    MOBILE NUMBER
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">📱</span>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="ENTER MOBILE NUMBER"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    COURSE
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">🎓</span>
+
+                    <select id="course" required>
+
+                        <option value="">
+                            SELECT COURSE
+                        </option>
+
+                        <option>BCA</option>
+                        <option>B.Tech</option>
+                        <option>MCA</option>
+                        <option>M.Tech</option>
+                        <option>B.Sc</option>
+                        <option>B.Sc CS</option>
+                        <option>B.Sc IT</option>
+                        <option>B.Sc Data Science</option>
+
+                        <option>BBA</option>
+                        <option>MBA</option>
+                        <option>B.Com</option>
+                        <option>M.Com</option>
+                        <option>PGDM</option>
+
+                        <option>LLB</option>
+                        <option>BA LLB</option>
+                        <option>BBA LLB</option>
+                        <option>LLM</option>
+
+                        <option>B.Pharm</option>
+                        <option>D.Pharm</option>
+                        <option>M.Pharm</option>
+
+                        <option>B.Sc Nursing</option>
+                        <option>GNM</option>
+                        <option>BPT</option>
+
+                        <option>BA</option>
+                        <option>MA</option>
+                        <option>Psychology</option>
+
+                        <option>BHM</option>
+                        <option>BTTM</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    SEMESTER
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">📚</span>
+
+                    <select id="semester" required>
+
+                        <option value="">
+                            SELECT SEMESTER
+                        </option>
+
+                        <option>1st Semester</option>
+                        <option>2nd Semester</option>
+                        <option>3rd Semester</option>
+                        <option>4th Semester</option>
+                        <option>5th Semester</option>
+                        <option>6th Semester</option>
+                        <option>7th Semester</option>
+                        <option>8th Semester</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    CGPA
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">📊</span>
+
+                    <input
+                        type="number"
+                        id="cgpa"
+                        step="0.01"
+                        min="0"
+                        max="10"
+                        placeholder="E.G. 7.50"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    PASSWORD
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">🔐</span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="CREATE PASSWORD"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="terms">
+
+            <input
+                type="checkbox"
+                id="terms"
+                required
+            >
+
+            <span>
+
+                I AGREE TO PROVIDE ACCURATE INFORMATION
+                FOR PLACEMENT ACTIVITIES.
+
+            </span>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="register-btn">
+
+            CREATE STUDENT ACCOUNT →
+
+        </button>
+
+
+        <div
+            id="message"
+            class="message">
+        </div>
+
+
+    </form>
+
+
+    <div class="login-text">
+
+        ALREADY HAVE AN ACCOUNT?
+
+        <a href="student-login.html">
+            LOGIN HERE
+        </a>
+
+    </div>
+
+
+</div>
+
+</main>
+
+
+<script>
+
+document
+.getElementById("registerForm")
+.addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const studentId =
+        document.getElementById("studentId").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const course =
+        document.getElementById("course").value;
+
+    const semester =
+        document.getElementById("semester").value;
+
+    const cgpa =
+        document.getElementById("cgpa").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const terms =
+        document.getElementById("terms").checked;
+
+    const message =
+        document.getElementById("message");
+
+
+    if(!terms){
+
+        message.style.display="block";
+        message.style.background="#fff0f0";
+        message.style.color="#c0392b";
+
+        message.innerText=
+        "PLEASE ACCEPT THE TERMS TO CONTINUE.";
+
+        return;
+
+    }
+
+
+    if(cgpa < 0 || cgpa > 10){
+
+        message.style.display="block";
+        message.style.background="#fff0f0";
+        message.style.color="#c0392b";
+
+        message.innerText=
+        "CGPA MUST BE BETWEEN 0 AND 10.";
+
+        return;
+
+    }
+
+
+    let students=[];
+
+    try{
+
+        students=
+        JSON.parse(
+            localStorage.getItem("students")
+        ) || [];
+
+    }
+
+    catch(error){
+
+        students=[];
+
+    }
+
+
+    const exists=
+        students.some(
+            student =>
+            student.studentId.toLowerCase()
+            === studentId.toLowerCase()
+        );
+
+
+    if(exists){
+
+        message.style.display="block";
+        message.style.background="#fff0f0";
+        message.style.color="#c0392b";
+
+        message.innerText=
+        "THIS STUDENT ID IS ALREADY REGISTERED.";
+
+        return;
+
+    }
+
+
+    const student={
+
+        studentId:studentId,
+
+        name:name,
+
+        email:email,
+
+        mobile:mobile,
+
+        course:course,
+
+        semester:semester,
+
+        cgpa:parseFloat(cgpa),
+
+        password:password,
+
+        skills:[],
+
+        resumeName:"",
+
+        createdAt:new Date().toLocaleString()
+
+    };
+
+
+    students.push(student);
+
+
+    localStorage.setItem(
+        "students",
+        JSON.stringify(students)
+    );
+
+
+    localStorage.setItem(
+        "studentData",
+        JSON.stringify(student)
+    );
+
+    localStorage.setItem(
+        "studentId",
+        studentId
+    );
+
+
+    message.style.display="block";
+    message.style.background="#e8fff6";
+    message.style.color="#07845f";
+
+    message.innerText=
+    "REGISTRATION SUCCESSFUL! OPENING LOGIN...";
+
+
+    setTimeout(function(){
+
+        window.location.href=
+        "student-login.html";
+
+    },1200);
+
+});
+
+</script>
+
+
+</body>
+</html>
